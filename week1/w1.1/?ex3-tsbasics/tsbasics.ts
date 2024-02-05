@@ -1,7 +1,7 @@
 // exercise 1:
 
 let myNum: number = 5;
-myString = "Hello Universe";
+let myString = "Hello Universe";
 let myBool: boolean = true;
 let myArr: number[] = [1, 2, 3, 4];
 let myObj: object = { name: 'Bill' };

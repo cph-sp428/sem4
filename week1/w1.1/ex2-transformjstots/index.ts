@@ -1,4 +1,4 @@
-import { Gender, Person } from "./person";
+import { Gender, Person } from "./person.js";
 
 const people = [
     new Person("Steve", 25, Gender.MALE),
