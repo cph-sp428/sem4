@@ -1,0 +1,35 @@
+TYPE:
+What keyword is used to create custom types by giving a name to a set of type annotations?
+
+TUPLE:
+What feature allows you to express an array with a fixed number of elements, where each element's type is known, but need not be the same as the others?(5)
+
+UNION:
+What feature enables the combination of multiple types into a single type?(5)
+
+INDEXSIGNATURE:
+What feature allows you to define a specific type for the properties of an object based on their keys, typically used with square bracket notation?(14)
+
+ALIAS:
+What concept allows you to create an alternative name for a data type?(5)
+
+RECORD:
+Which utility type is used to represent an object type with string keys and values of a specific type?(6)
+
+ANY:
+What type is used to represent a variable that can hold values of any data type?(3)
+
+TYPECASTING:
+What term refers to the process of explicitly changing the data type of a variable from one type to another, ensuring compatibility?(11)
+
+ENUM:
+What construct enables the definition of a set of named constant values, representing a set of distinct values applicable to a variable?(4)
+
+UNKNOWN:
+What type is used when the developer doesn't know or wants to signal that a value could be of any type until it's checked at runtime?(7)
+
+NEVER:
+What type is used to represent a value that will never occur?(5)
+
+INTERFACE:
+What construct is used to define a contract for object structures, allowing you to specify the shape a variable must have?(9)
