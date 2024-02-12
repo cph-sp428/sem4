@@ -1,0 +1,23 @@
+{
+  "name": "ex1-expressbasics",
+  "version": "1.0.0",
+  "description": "Your Express TypeScript project",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "nodemon"
+  },
+  "keywords": [],
+  "author": "Your Name",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.12",
+    "@types/node": "^16.11.15",
+    "nodemon": "^2.0.12",
+    "ts-node": "^10.2.0",
+    "typescript": "^4.5.2"
+  }
+}
