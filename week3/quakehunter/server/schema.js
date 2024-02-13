@@ -20,6 +20,7 @@ const typeDefs = gql`
         username: String!
         email: String!
         password; String!
+        records: [Quake]!
     }
 
     type Mutation {
@@ -30,6 +31,12 @@ const typeDefs = gql`
 
         signup(username: String!, email: String!, password: String!): String!
         login(email: String!, password: String!): String!
+    }
+
+    type RecordUpdateResponse {
+        success: Boolean!
+        message: String
+        records: [Quake]
     }
 `;
 
