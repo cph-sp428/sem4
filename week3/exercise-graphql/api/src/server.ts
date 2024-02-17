@@ -5,7 +5,10 @@ import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHt
 import express from 'express';
 import http from 'http';
 import cors from 'cors';
-import { typeDefs, resolvers } from './schema.ts';
+import { typeDefs } from './typedefs';
+import { resolvers } from './resolvers';
+import { Person, Address } from './types';
+
 
 interface MyContext {
     token?: String;

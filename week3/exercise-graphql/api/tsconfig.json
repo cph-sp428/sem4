@@ -19,6 +19,6 @@
     "esm": true,
     "experimentalSpecifierResolution": "node"
   },
-  "include": ["src/**/*.ts", "src/resolvers"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }
