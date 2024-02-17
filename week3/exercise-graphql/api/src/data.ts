@@ -78,19 +78,20 @@ const persons: Person[] = [
     name: "John Doe",
     email: "johndoe@email.com",
     age: 25,
-    address: address1
+    addresses: [address1]
   },
   {
     id: 2,
     name: "Jane Doe",
     email: "janedoe@email.com",
     age: 30,
-    address: address2
+    addresses: [address2]
   }
 ];
 
 const addresses: Address[] = [
-  {...address1, persons: [persons[0]]},{...address2, persons: [persons[1]]}
+  {...address1, persons: [persons[0]]}
+  ,{...address2, persons: [persons[1]]}
 ];
 
 export default {

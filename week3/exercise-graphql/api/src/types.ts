@@ -19,7 +19,7 @@ export type Person = {
   name: string;
   email: string;
   age: number;
-  address: Address;
+  addresses: Address[];
 };
 
 export type Address = {
