@@ -21,6 +21,9 @@ export const resolvers = {
     category: (parent: any, args: any, context: any, info: any) => {
       return books.filter((book) => book.category === args.name);
     },
+    person: (parent: any, args: any, context: any, info: any) => {
+      return persons.find((person) => person.id === args.id);
+    },
     persons: () => persons,
     addresses: () => addresses,
     addressesByZipCode: (parent: any, args: any, context: any, info: any) => {

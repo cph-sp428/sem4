@@ -6,6 +6,7 @@ type Query {
     book: Book
     books: [Book]
     category(name:String!): [Book]
+    person(id: ID!): Person
     persons: [Person]
     addresses: [Address]
     addressesByZipCode(zipCode: Int!): [Address]
