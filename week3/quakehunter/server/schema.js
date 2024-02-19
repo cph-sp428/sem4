@@ -1,10 +1,11 @@
-const {gql} = require('apollo-server');
+const { gql } = require("apollo-server");
 
-//schema definition language
 const typeDefs = gql`
     type Query {
         quakes: [Quake]!
         quake(id: ID!): Quake
+
+        #queries for current user
         me: User
     }
 
@@ -13,24 +14,25 @@ const typeDefs = gql`
         location: String
         magnitude: Float
         when: String
+        time: String
     }
 
     type User {
         id: ID!
         username: String!
         email: String!
-        password; String!
-        records: [Quake]!
+        password: String!
     }
 
     type Mutation {
-        # if false, save failed -- check errors
-        saveRecord(recordId: ID!): RecordUpdateResponse!
-        # if false, delete failed -- check errors
+        # if false saving record failed -- check errors
+        saveRecords(recordId: ID!): RecordUpdateResponse!
+
+        # if false deleting record failed -- check errors
         deleteRecord(recordId: ID!): RecordUpdateResponse!
 
-        signup(username: String!, email: String!, password: String!): String!
-        login(email: String!, password: String!): String!
+        #login token
+        login(email: String): String
     }
 
     type RecordUpdateResponse {
@@ -38,6 +40,7 @@ const typeDefs = gql`
         message: String
         records: [Quake]
     }
+
 `;
 
 module.exports = typeDefs;
