@@ -70,5 +70,16 @@ export const resolvers = {
       }
       return person;
     },
+    deleteAddress: (parent: any, args: { id: string }) => {
+      const address = addresses.find((a) => a.id === args.id);
+      if (address) {
+        addresses.splice(addresses.indexOf(address), 1);
+
+        for (const person of people) {
+          person.addresses = person.addresses?.filter((a) => a.id !== address.id);
+        }
+      }
+      return address;
+    },
   },
 };

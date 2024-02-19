@@ -11,6 +11,7 @@ export const typeDefs = `#graphql
         addPersonToAddress(personId: ID!, addressId: ID!): Address
         removePersonFromAddress(personId: ID!, addressId: ID!): Address
         deletePerson(id: ID!): Person
+        deleteAddress(id: ID!): Address
     }
 
     type Person {
