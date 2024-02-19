@@ -45,3 +45,14 @@ export const DELETE_ADDRESS = gql`
         }
     }
 `;
+
+export const ADD_PERSON_ADDRESS = gql`
+    mutation AddPersonToAddress($personId: ID!, $addressId: ID!) {
+        addPersonToAddress(personId: $personId, addressId: $addressId) {
+            id
+            name
+            email
+            age
+        }
+    }
+`;
