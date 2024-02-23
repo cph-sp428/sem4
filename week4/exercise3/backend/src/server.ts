@@ -1,27 +1,36 @@
 import { MongoClient, ObjectId, ServerApiVersion } from "mongodb";
+import mongoose from "mongoose";
+import personController from "./controller/personController";
+import addressController from "./controller/addressController";
 
-const url =
-  "mongodb+srv://cphsp428:b4UWIXoabyBp00c4@cluster0.7pyzfcv.mongodb.net/";
-
-const client = new MongoClient(url, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
-});
+const URL =
+  "mongodb+srv://cphsp428:b4UWIXoabyBp00c4@cluster0.7pyzfcv.mongodb.net/personel";
 
 async function run() {
   try {
-    await client.connect();
+    await mongoose.connect(URL);
 
+    // let address = await addressController.createAddress({
+    //   street: "Lyngbyvej",
+    //   city: "København",
+    //   state: "Hovedstaden",
+    //   zip: 2100,
+    // });
 
+    // console.log(address);
+  
+    let person = await personController.createPerson({
+      name: "John Doe",
+      email: "johndoe@email.com",
+      age: 26
+    });
 
+    console.log (person);
 
   } catch (error) {
     console.log("Error: ", error);
   } finally {
-    await client.close();
+    await mongoose.disconnect();
   }
 }
 

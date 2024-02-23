@@ -1,5 +1,5 @@
 export type PersonType = {
-    id: string;
+    id?: string;
     name: string;
     email: string;
     age: number;
@@ -7,7 +7,7 @@ export type PersonType = {
 };
 
 export type AddressType = {
-    id: string;
+    id?: string;
     street: string;
     city: string;
     state: string;
