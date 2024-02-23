@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { AuthorType } from "../types/types";
 
 const authorSchema = new mongoose.Schema({
     ObjectId: mongoose.Schema.Types.ObjectId,
@@ -17,13 +18,30 @@ const authorSchema = new mongoose.Schema({
     },
     books: {
         type: [mongoose.Schema.Types.ObjectId],
-        
+        required: true,
     },
     createdAt: {
         type: Date,
         required: true,
         default: Date.now
     }
+}, {
+    statics: {
+        // alternative way to define a static method
+    },
+    virtuals: {
+        // alternative way to define a virtual field
+    }
+});
+
+authorSchema.statics.findAuthorsWithMultipleBooks = function() {
+    return this.find().filter((author: AuthorType) => {
+        author.books !== undefined && author.books.length > 1;
+    });
+}
+
+authorSchema.virtual("nameCapitalized").get(function (this: AuthorType) {
+    return this.name.toUpperCase();
 });
 
 authorSchema.pre(/^save/, function (next) {

@@ -47,6 +47,7 @@ bookSchema.pre<BookType>(/^find/, function (next) {
 
 bookSchema.pre<BookType>(/^save/, function (next) {
   (this as any).populate({ path: "author", select: "name" });
+  next();
 });
 
 const bookModel = mongoose.model("book", bookSchema);
