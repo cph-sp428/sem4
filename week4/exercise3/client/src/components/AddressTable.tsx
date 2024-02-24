@@ -39,8 +39,8 @@ function AddressTable() {
                         <td>{address.state}</td>
                         <td>{address.zip}</td>
                         <td>
-                        {address.people?.map((person: Person) => (
-                            <p key={person.id}>{person.id}</p>
+                        {address.people?.map((id) => (
+                            <p >{id}</p>
                         ))}
                         </td>
                         <td>
