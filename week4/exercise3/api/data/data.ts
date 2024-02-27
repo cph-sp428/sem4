@@ -1,4 +1,19 @@
-import { PersonType, AddressType } from '../src/model/types';
+interface PersonType {
+    id: string;
+    name: string;
+    email: string;
+    age: number;
+    addresses?: AddressType[];
+}
+
+interface AddressType {
+    id: string;
+    street: string;
+    city: string;
+    state: string;
+    zip: number;
+    people?: PersonType[];
+}
 
 const johnDoe: PersonType= {
     id: "1",
