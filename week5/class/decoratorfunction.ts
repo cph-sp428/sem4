@@ -12,10 +12,6 @@ const logResolve = (role : string, resolve : any) => {
 
 }
 
-const personController = {
-    getAllPeople = () => {}
-}
-
 export const resolvers = {
   Query: {
     people: () => personController.getAllPeople(),

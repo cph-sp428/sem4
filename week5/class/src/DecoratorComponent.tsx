@@ -1,10 +1,10 @@
-import {React}from 'react';
+import React from 'react';
 
 interface DecoratorComponentProps {
     children: React.ReactNode;
 };
 
-function DecoratorComponent({props}) : React.FC<DecoratorComponentProps> {
+function DecoratorComponent({children}) : React.ReactElement {
 
     const {children} = props;
     
