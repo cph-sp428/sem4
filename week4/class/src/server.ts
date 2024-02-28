@@ -1,8 +1,7 @@
 import { MongoClient, ObjectId, ServerApiVersion } from "mongodb";
+import { MONGODB_URL } from "./config";
 
-const uri = "mongodb+srv://cphsp428:b4UWIXoabyBp00c4@cluster0.7pyzfcv.mongodb.net/";
-
-const client = new MongoClient(uri, {
+const client = new MongoClient(MONGODB_URL, {
     serverApi: {
         version: ServerApiVersion.v1,
         strict: true,

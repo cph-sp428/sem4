@@ -9,9 +9,10 @@ import {resolvers} from './config/resolvers';
 import {typeDefs} from './config/typedefs';
 import mongoose from 'mongoose';
 
+import {MONGODB_URL} from "./config";
+
 // establish connection to the database - mongoose obj is used to connect to the database
-const URL ="mongodb+srv://cphsp428:b4UWIXoabyBp00c4@cluster0.7pyzfcv.mongodb.net/personel";
-await mongoose.connect(URL);
+await mongoose.connect(MONGODB_URL);
 
 interface MyContext {
   token?: String;

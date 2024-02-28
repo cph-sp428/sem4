@@ -4,14 +4,13 @@ import bookController from "./controller/bookController";
 import libraryController from "./controller/libraryController";
 import { AuthorType, BookType, LibraryType } from "./types/types";
 
-const URL =
-  "mongodb+srv://cphsp428:b4UWIXoabyBp00c4@cluster0.7pyzfcv.mongodb.net/library";
+import { MONGODB_URL } from "./config";
 
 main().catch((err) => console.log(err));
 
 async function main() {
   try {
-    await mongoose.connect(URL);
+    await mongoose.connect(MONGODB_URL);
 
     let author = await authorController.getAuthorByName("J.K. Rowling");
     let library = await libraryController.getLibraryByName("Copenhagen Library");

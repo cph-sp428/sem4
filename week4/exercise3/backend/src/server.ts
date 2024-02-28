@@ -2,13 +2,11 @@ import { MongoClient, ObjectId, ServerApiVersion } from "mongodb";
 import mongoose from "mongoose";
 import personController from "./controller/personController";
 import addressController from "./controller/addressController";
-
-const URL =
-  "mongodb+srv://cphsp428:b4UWIXoabyBp00c4@cluster0.7pyzfcv.mongodb.net/personel";
+import { MONGODB_URL } from "./config";
 
 async function run() {
   try {
-    await mongoose.connect(URL);
+    await mongoose.connect(MONGODB_URL);
 
     // let address = await addressController.createAddress({
     //   street: "Lyngbyvej",
