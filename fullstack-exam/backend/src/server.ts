@@ -1,4 +1,3 @@
-// npm install @apollo/server express graphql cors
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
@@ -6,10 +5,10 @@ import express from 'express';
 import http from 'http';
 import cors from 'cors';
 import mongoose from 'mongoose';
-
 import {MONGODB_URL} from "./config";
+import { resolvers } from './api/resolvers';
+import { typeDefs } from './api/typedefs';
 
-// establish connection to the database - mongoose obj is used to connect to the database
 await mongoose.connect(MONGODB_URL);
 
 interface MyContext {
