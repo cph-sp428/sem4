@@ -8,9 +8,22 @@ import commentModel from "../models/commentModel";
 export const resolvers = {
   Query: {
     users: async (_parent: never, _context: any) => await userModel.find(),
+    user: async (_parent: never, args: { id: string }, _context: any) => {
+      await userModel.findById(args.id);
+    },
     posts: async (_parent: never, _context: any) => await postModel.find(),
     comments: async (_parent: never, _context: any) =>
       await commentModel.find(),
+    postsByUserId: async (
+      _parent: never,
+      args: { id: string },
+      _context: any
+    ) => await postModel.find({ user: args.id }),
+    commentsByPostId: async (
+      _parent: never,
+      args: { id: string },
+      _context: any
+    ) => await commentModel.find({ post: args.id }),
   },
 
   Mutation: {

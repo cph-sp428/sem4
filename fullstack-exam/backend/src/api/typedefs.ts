@@ -1,9 +1,11 @@
 export const typeDefs = `#graphql
     type Query {
         users: [User]
+        user(id: ID!): User
         posts: [Post]
+        postsByUserId(id: ID!): [Post]
         comments: [Comment]
-
+        commentsByPostId(id: ID!): [Comment]
     }
 
     type Mutation {
