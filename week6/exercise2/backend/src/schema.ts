@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import ownerModel from "./ownerModel";
 import petModel from "./petModel";
 import { Owner } from "./types";
@@ -58,13 +59,17 @@ const resolvers = {
       return await onwer.save();
     },
     addPet: async (parent: any, args: any, context: any) => {
+      if(!mongoose.Types.ObjectId.isValid(args.ownerId)) throw new Error("Owner not found");
       const owner = await ownerModel.findById(args.ownerId);
       if (!owner) {
         throw new Error("Owner not found");
       }
-      owner.pets.push(args);
+      const pet = await petModel.create({ name: args.name, species: args.species, age: args.age, owner: args.ownerId });
+
+      owner.pets.push(args.ownerId);
       await owner.save();
-      return petModel.create({ name: args.name, species: args.species, age: args.age, owner: args.ownerId });
+      return await pet.save();
+
     },
     updateOwner: async (parent: any, args: any, context: any) => {
       return ownerModel.findByIdAndUpdate(args.id, { name: args.name, age: args.age }, { new: true })
