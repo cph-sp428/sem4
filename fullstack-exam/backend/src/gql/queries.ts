@@ -9,16 +9,16 @@ export default {
     _parent: never,
     args: { username: string; password: string }
   ) => {
-    const hashedPassword = bcrypt.hashSync(args.password, 10);
     const user = await userModel.findOne({
       username: args.username,
-      password: hashedPassword,
     });
     if (!user) {
       throw new Error("Invalid username or password");
     }
-    
-    return {username: user.username, roles : user.roles};
+
+    const passwordCorrect = await bcrypt.compare(args.password, user.password);
+
+    return { username: user.username, roles: user.roles };
   },
   users: async (_parent: never, _context: any) => await userModel.find(),
   user: async (_parent: never, args: { id: string }, _context: any) => {

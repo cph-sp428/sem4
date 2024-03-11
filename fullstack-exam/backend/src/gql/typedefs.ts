@@ -1,6 +1,6 @@
 export const typeDefs = `#graphql
     type Query {
-        login(username: String!, password: String!): { username: String , roles: [String]}
+        login(username: String!, password: String!) : UserDto
         users: [User]
         user(id: ID!): User
         posts: [Post]
@@ -24,6 +24,11 @@ export const typeDefs = `#graphql
         posts: [Post]
         following: [User]
         followers: [User]
+    }
+
+    type UserDto {
+        username: String!
+        roles: [String]
     }
 
     type Post {
