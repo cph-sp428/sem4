@@ -1,5 +1,6 @@
 export const typeDefs = `#graphql
     type Query {
+        login(username: String!, password: String!): { username: String , roles: [String]}
         users: [User]
         user(id: ID!): User
         posts: [Post]

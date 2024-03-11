@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { User } from "../types/User";
+import User from "../types/User";
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -45,18 +45,17 @@ const userSchema = new mongoose.Schema({
     ref: "User",
     default: [],
   },
-
 });
 
-userSchema.virtual("numberOfPosts").get (function (this : User) {
+userSchema.virtual("numberOfPosts").get(function (this: User) {
   return this.posts.length;
 });
 
-userSchema.virtual("numberOfFollowing").get (function (this : User) {
+userSchema.virtual("numberOfFollowing").get(function (this: User) {
   return this.following.length;
 });
 
-userSchema.virtual("numberOfFollowers").get (function (this : User) {
+userSchema.virtual("numberOfFollowers").get(function (this: User) {
   return this.followers.length;
 });
 
