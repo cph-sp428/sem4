@@ -1,10 +1,11 @@
 export const typeDefs = `#graphql
     type Query {
-        login(username: String!, password: String!) : UserDto
+        login(username: String!, password: String!) : Token
         users: [User]
-        user(id: ID!): User
+        user(username: String!): User
         posts: [Post]
         postsByUserId(id: ID!): [Post]
+        relevantPostsByUsername(username: String!): [Post]
         comments: [Comment]
         commentsByPostId(id: ID!): [Comment]
     }
@@ -13,6 +14,10 @@ export const typeDefs = `#graphql
         addUser(username: String!, password: String!, email: String!): User
         addPost(user: ID!, picUrl: String!, description: String!): Post
         addComment(user: ID!, post: ID!, text: String!): Comment
+    }
+
+    type Token {
+        token: String
     }
 
     type User {
@@ -24,6 +29,7 @@ export const typeDefs = `#graphql
         posts: [Post]
         following: [User]
         followers: [User]
+        relevantPosts: [Post]
     }
 
     type UserDto {

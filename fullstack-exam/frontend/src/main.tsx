@@ -8,14 +8,33 @@ import {
   gql,
 } from "@apollo/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LoginForm from "./components/LoginForm";
+import LoginPage from "./components/LoginPage";
+import HomePage from "./components/HomePage";
+import Navbar from "./components/Navbar";
+import ProfilePage from "./components/ProfilePage";
+import ErrorPage from "./components/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/login",
-    element: <LoginForm />,
+    element: <LoginPage />,
+  },
+  {
+    path: "",
+    element: <Navbar />,
+    children: [
+      {
+        path: "/home",
+        element: <HomePage />,
+      },
+      {
+        path: "/profile",
+        element: <ProfilePage />,
+      }
+    ]
+  },{
 
-
+    errorElement: <ErrorPage/>,
     ErrorBoundary: () => <h1>404 Not Found</h1>,
   }
 ]);

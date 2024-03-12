@@ -7,12 +7,12 @@ import Post from "../types/Post";
 import Comment from "../types/Comment";
 
 export default {
-  addUser: (_parent: never, args: User, _context: never, _info: never) => {
+  addUser: async (_parent: never, args: User, _context: never, _info: never) => {
     const user = userModel.findOne({ username: args.username });
     if (!user) {
       throw new Error("Username already exists");
     }
-    const hashedPassword = bcrypt.hashSync(args.password, 10);
+    const hashedPassword = await bcrypt.hash(args.password, 10);
     return userModel.create({ ...args, password: hashedPassword });
   },
 

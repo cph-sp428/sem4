@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import User from "../types/User";
+import Post from "../types/Post";
 
-const userSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
@@ -13,7 +14,6 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    lowercase: true,
   },
   email: {
     type: String,
@@ -45,17 +45,26 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-userSchema.virtual("numberOfPosts").get(function (this: User) {
+UserSchema.virtual("numberOfPosts").get(function (this: User) {
   return this.posts.length;
 });
 
-userSchema.virtual("numberOfFollowing").get(function (this: User) {
+UserSchema.virtual("numberOfFollowing").get(function (this: User) {
   return this.following.length;
 });
 
-userSchema.virtual("numberOfFollowers").get(function (this: User) {
+UserSchema.virtual("numberOfFollowers").get(function (this: User) {
   return this.followers.length;
 });
 
-const userModel = mongoose.model("User", userSchema);
+UserSchema.virtual("relevantPosts").get(async function (this: User) {
+  let relevantPosts: Post[] = [];
+  for (let i = 0; i < this.following.length; i++) {
+    const user = this.following[i];
+    relevantPosts = relevantPosts.concat(user.posts);
+  }
+  return relevantPosts;
+});
+
+const userModel = mongoose.model("User", UserSchema);
 export default userModel;

@@ -10,6 +10,7 @@ type User = {
   posts: Post[];
   following: User[];
   followers: User[];
+  relevantPosts: Post[];
 };
 
 export default User;
