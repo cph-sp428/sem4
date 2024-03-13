@@ -2,7 +2,7 @@ import useAuth from "../hooks/useAuth";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import ProfileCard from "./ProfileCard";
-import PostCardContainer from "./PostCardContainer";
+import PostCardContainer from "./posts/PostCardContainer";
 import { GET_POSTS_BY_USERNAME } from "../graphql/queries/GetPostsByUsername";
 
 function ProfilePage() {
@@ -20,9 +20,6 @@ function ProfilePage() {
 
   if (loading) return <p>Loading...</p>;
   if (error) throw error;
-
-
-  console.log(data);
 
   return (
     <div>

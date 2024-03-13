@@ -18,8 +18,9 @@ import ExplorePage from "./components/ExplorePage";
 /*
 
 TODO:
-1. fix the glitch that happens when navigating to the profile page from the home page
-2. get working data in mongodb
+1. add comments - username
+2. add backend populate methods 
+
 3. fix the error page
 4. fix the nav bar
 5. fix the login page
