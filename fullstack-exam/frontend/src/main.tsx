@@ -13,6 +13,7 @@ import HomePage from "./components/HomePage";
 import Navbar from "./components/Navbar";
 import ProfilePage from "./components/ProfilePage";
 import ErrorPage from "./components/ErrorPage";
+import ExplorePage from "./components/ExplorePage";
 
 /*
 
@@ -39,12 +40,22 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/profile",
+        path: "/explore",
+        element: <ExplorePage />,
+      },
+      {
+        path: "/user",
         element: <ProfilePage />,
-      }
+        children: [
+          {
+            path: "/user/:username",
+            element: <ProfilePage />,
+          },
+        ],
+      },
     ],
     errorElement: <ErrorPage />,
-  }
+  },
 ]);
 
 const client = new ApolloClient({

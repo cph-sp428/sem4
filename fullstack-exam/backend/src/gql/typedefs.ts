@@ -1,19 +1,16 @@
 export const typeDefs = `#graphql
     type Query {
         login(username: String!, password: String!) : Token
-        users: [User]
-        user(username: String!): User
-        posts: [Post]
-        postsByUserId(id: ID!): [Post]
+        getAllPosts: [Post]
         relevantPostsByUsername(username: String!): [Post]
-        comments: [Comment]
-        commentsByPostId(id: ID!): [Comment]
+        postsByUsername(username: String) : [Post]
+        userByUsername(username: String!) : User
     }
 
     type Mutation {
         addUser(username: String!, password: String!, email: String!): User
-        addPost(user: ID!, picUrl: String!, description: String!): Post
-        addComment(user: ID!, post: ID!, text: String!): Comment
+        addPost(username: String!, picUrl: String!, description: String!): Post
+        addComment(username: String!, postId: String!, text: String!): Comment
     }
 
     type Token {

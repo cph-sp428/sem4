@@ -29,6 +29,7 @@ const server = new ApolloServer<MyContext>({
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 await server.start();
+
 app.use(
   "/graphql",
   cors<cors.CorsRequest>(),

@@ -20,35 +20,55 @@ export default {
     }
 
     const passwordCorrect = await bcrypt.compare(args.password, user.password);
-    if(!passwordCorrect) {
-       throw new Error("Invalid password");
-     };
+    if (!passwordCorrect) {
+      throw new Error("Invalid password");
+    }
 
     const token = jwt.sign(
       { username: user.username, roles: user.roles },
       JWT_SECRET
     );
 
-    return {token: token};
+    return { token: token };
   },
-  users: async (_parent: never, _context: any) => await userModel.find(),
-  user: async (_parent: never, args: { username: string }, _context: any) => {
-    return await userModel.findOne({ username: args.username });
-  },
-  posts: async (_parent: never, _context: any) => await postModel.find(),
-  comments: async (_parent: never, _context: any) => await commentModel.find(),
-  postsByUserId: async (_parent: never, args: { id: string }, _context: any) =>
-    await postModel.find({ user: args.id }),
-  relevantPostsByUsername: async (_parent: never, args: { username: string }, _context: any) => {
-    const user : User | null = await userModel.findOne({ username: args.username });
-    if(!user) {
+  getAllPosts: async (_parent: never, _context: any) => await postModel.find().populate("user").populate("comments").populate("user"),
+  relevantPostsByUsername: async (
+    _parent: never,
+    args: { username: string },
+    _context: any
+  ) => {
+    const user: User | null = await userModel.findOne({
+      username: args.username,
+    });
+    if (!user) {
       throw new Error("User not found");
     }
     return user.relevantPosts;
   },
-  commentsByPostId: async (
+  postsByUsername: async (
     _parent: never,
-    args: { id: string },
+    args: { username: string },
     _context: any
-  ) => await commentModel.find({ post: args.id }),
+  ) => {
+    const user = await userModel.findOne({ username: args.username });
+    const posts = await postModel
+      .find({ user: user?._id })
+      .populate({
+        path: "comments",
+        populate: { path: "user" },
+      })
+    return posts;
+  },
+  userByUsername: async (
+    _parent: never,
+    args: { username: string },
+    _context: any
+  ) => {
+    const user = await userModel
+    .findOne({ username: args.username }).populate("posts").populate("posts.comments");
+    if (!user) {
+      throw new Error("User not found");
+    }
+    return user;
+  }
 };

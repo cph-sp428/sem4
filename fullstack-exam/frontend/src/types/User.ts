@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import Post from "./Post";
 
 type User = {
-  _id: mongoose.Types.ObjectId;
+  id: string;
   username: string;
   password: string;
   email: string;

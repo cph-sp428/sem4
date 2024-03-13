@@ -7,7 +7,12 @@ import Post from "../types/Post";
 import Comment from "../types/Comment";
 
 export default {
-  addUser: async (_parent: never, args: User, _context: never, _info: never) => {
+  addUser: async (
+    _parent: never,
+    args: User,
+    _context: never,
+    _info: never
+  ) => {
     const user = userModel.findOne({ username: args.username });
     if (!user) {
       throw new Error("Username already exists");
@@ -16,36 +21,46 @@ export default {
     return userModel.create({ ...args, password: hashedPassword });
   },
 
-  addPost: (_parent: never, args: Post, _context: never, _info: never) => {
-    userModel.findById(args.user).then((user) => {
-      if (user && args._id) {
-        user.posts.push(args._id);
-        user.save();
-      }
-    });
-    return postModel.create(args);
-  },
-
-  addComment: (
+  addPost: async (
     _parent: never,
-    args: Comment,
+    args: { username: string; picUrl: string; description: string },
     _context: never,
     _info: never
   ) => {
-    const post = postModel.findById(args.post);
-    if (!post) {
-      throw new Error("Post does not exist");
-    }
-    const user = userModel.findById(args.user);
+    const user = await userModel.findOne({ username: args.username });
     if (!user) {
-      throw new Error("User does not exist");
+      throw new Error("Username not found");
     }
-    postModel.findById(args.post).then((post) => {
-      if (post && args._id) {
-        post.comments.push(args._id);
+    const post = await postModel.create({
+      user: user,
+      picUrl: args.picUrl,
+      description: args.description,
+    });
+    user.posts.push(post._id);
+    user.save();
+    return post;
+  },
+
+  addComment: async (
+    _parent: never,
+    args: { username: string; postId: string; text: string },
+    _context: never,
+    _info: never
+  ) => {
+    const user = await userModel.findOne({ username: args.username });
+    const post = await postModel.findById(args.postId);
+
+    const comment = await commentModel.create({
+      user: user,
+      post: post,
+      text: args.text,
+    });
+    postModel.findById(args.postId).then((post) => {
+      if (post) {
+        post.comments.push(comment._id);
         post.save();
       }
     });
-    return commentModel.create(args);
+    return comment;
   },
 };

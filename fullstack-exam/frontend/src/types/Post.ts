@@ -1,9 +1,8 @@
 import User from "./User";
 import Comment from "./Comment";
-import mongoose from "mongoose";
 
 type Post = {
-  _id: mongoose.Types.ObjectId;
+  id: string;
   user: User;
   picUrl: string;
   description: string;
