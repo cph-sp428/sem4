@@ -1,15 +1,17 @@
 import useAuth from "../hooks/useAuth";
 import { useQuery } from "@apollo/client";
-import { GET_USER_BY_USERNAME } from "../queries/UserByUsername";
+import { GET_USER_BY_USERNAME } from "../graphql/queries/UserByUsername";
 
 function ProfilePage() {
-  const { username } = useAuth("user");
+  const username = useAuth("user");
+  if(!username) throw new Error("Not authenticated");
+  
   const { loading, error, data } = useQuery(GET_USER_BY_USERNAME, {
     variables: { username: username },
   });
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) throw error;
 
   return (
     <div>

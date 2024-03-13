@@ -16,7 +16,7 @@ export const setToken = (token: string) => {
   redirect("/");
 };
 
-export const auth = (role: string) => {
+export const authenticate = (role: string) => {
   const token = cookies.get("token");
   if (!token) {
     return {isValid: false, username: ""};

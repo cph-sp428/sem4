@@ -1,6 +1,6 @@
 import useAuth from "../hooks/useAuth";
 import { useQuery } from "@apollo/client";
-import { RELEVANT_POSTS } from "../queries/RelevantPosts";
+import { RELEVANT_POSTS } from "../graphql/queries/RelevantPosts";
 
 function HomePage() {
   const username : string = useAuth("user");

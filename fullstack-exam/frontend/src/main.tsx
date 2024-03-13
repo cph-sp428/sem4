@@ -14,6 +14,17 @@ import Navbar from "./components/Navbar";
 import ProfilePage from "./components/ProfilePage";
 import ErrorPage from "./components/ErrorPage";
 
+/*
+
+TODO:
+1. fix the glitch that happens when navigating to the profile page from the home page
+2. get working data in mongodb
+3. fix the error page
+4. fix the nav bar
+5. fix the login page
+
+*/
+
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -31,11 +42,8 @@ const router = createBrowserRouter([
         path: "/profile",
         element: <ProfilePage />,
       }
-    ]
-  },{
-
-    errorElement: <ErrorPage/>,
-    ErrorBoundary: () => <h1>404 Not Found</h1>,
+    ],
+    errorElement: <ErrorPage />,
   }
 ]);
 

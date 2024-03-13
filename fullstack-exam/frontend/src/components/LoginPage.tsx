@@ -1,7 +1,7 @@
-import { FormEvent, useEffect, useState } from "react";
-import { auth, setToken } from "../facades/AuthFacade";
+import { useState } from "react";
+import { authenticate, setToken } from "../utils/AuthFacade";
 import { useQuery } from "@apollo/client";
-import { LOGIN } from "../queries/Login";
+import { LOGIN } from "../graphql/queries/Login";
 import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
@@ -20,10 +20,9 @@ function LoginPage() {
 
     const token = data.login.token;
     setToken(token);
-    if(auth("user").isValid){
+    if (authenticate("user").isValid) {
       navigate("/home");
     }
-    
   };
 
   return (
