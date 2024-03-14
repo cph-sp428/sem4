@@ -1,13 +1,22 @@
+import { redirect, useNavigate } from "react-router-dom";
 
 function ErrorPage() {
 
+    const navigate = useNavigate();
 
-    return ( 
-        <div>
-            <h1>Error Page...</h1>
-            <h2> uh oh</h2>
-        </div>
-    );
+    const handleClick = () => {
+        navigate("")
+    }
+
+  return (
+    <div className="main-div">
+      <div className=" bg-slate-700 text-center justify-center center$">
+        <h1>404 - something went wrong</h1>
+        <h2>no permission or endpoint</h2>
+        <button onClick={handleClick}>Go back</button>
+      </div>
+    </div>
+  );
 }
 
 export default ErrorPage;
