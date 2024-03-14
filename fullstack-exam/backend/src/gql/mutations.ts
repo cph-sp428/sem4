@@ -63,4 +63,42 @@ export default {
     });
     return comment;
   },
+  likePost: async (_parent: never, args: { postId: string; username: string }) => {
+    const user = await userModel.findOne({ username: args.username });
+    const post = await postModel.findById(args.postId);
+    if (!post) {
+      throw new Error("Post not found");
+    } else if (!user){
+      throw new Error("User not found");
+    }
+    if(post.likes.includes(user._id)) {
+      //return JSON.stringify({error: "Post Already Liked..."});
+      throw new Error("Post already liked");
+    }
+    post.likes.push(user._id);
+    post.save();
+    return post;
+  },
+  followUser: async (_parent: never, args: { username: string; usernameToFollow: string }) => {
+    const user = await userModel.findOne({ username: args.username });
+    const userToFollow = await userModel.findOne({ username: args.usernameToFollow });
+
+    if(!user || !userToFollow) {
+      throw new Error("User not found");
+    }
+    user.following.push(userToFollow._id);
+    user.save();
+    return userToFollow;
+  },
+  updateUser: async (_parent: never, args: { userId: string, username: string, password: string, email: string}) => {
+    const user = await userModel.findById(args.userId);
+    if(!user){
+      throw new Error("User not found");
+    }
+    user.username = args.username;
+    user.password = bcrypt.hashSync(args.password, 10);
+    user.email = args.email;
+    user.save();
+    return user;
+  },
 };

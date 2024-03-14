@@ -13,7 +13,7 @@ interface CommentFormProps {
 function CommentForm({ postId }: CommentFormProps) {
   const [commentText, setCommentText] = useState("");
   const username = useAuth("user");
-  console.log(username);
+  // console.log(username);
 
   const [addComment, { loading, error }] = useMutation(POST_COMMENT, {
     variables: {

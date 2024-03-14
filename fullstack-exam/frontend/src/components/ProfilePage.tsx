@@ -23,7 +23,7 @@ function ProfilePage() {
 
   return (
     <div>
-      <ProfileCard username={currentUsername} />
+      <ProfileCard username={currentUsername}/>
 
       <PostCardContainer
         posts={data.postsByUsername}

@@ -57,14 +57,5 @@ UserSchema.virtual("numberOfFollowers").get(function (this: User) {
   return this.followers.length;
 });
 
-UserSchema.virtual("relevantPosts").get(async function (this: User) {
-  let relevantPosts: Post[] = [];
-  for (let i = 0; i < this.following.length; i++) {
-    const user = this.following[i];
-    relevantPosts = relevantPosts.concat(user.posts);
-  }
-  return relevantPosts;
-});
-
 const userModel = mongoose.model("User", UserSchema);
 export default userModel;

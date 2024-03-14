@@ -13,7 +13,7 @@ import { typeDefs } from "./gql/typedefs";
 await mongoose.connect(MONGODB_URL);
 
 interface MyContext {
-  token?: String;
+  token?: string;
 }
 
 const resolvers = {
@@ -35,10 +35,9 @@ app.use(
   cors<cors.CorsRequest>(),
   express.json(),
   expressMiddleware(server, {
-    context: async ({ req }) => ({ token: req.headers.token }),
+    context: async ({ req }) => ({ token: req.headers.authorization }),
   })
 );
-
 await new Promise<void>((resolve) =>
   httpServer.listen({ port: 4000 }, resolve)
 );

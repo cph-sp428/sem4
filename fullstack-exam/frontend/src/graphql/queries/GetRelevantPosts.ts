@@ -1,15 +1,28 @@
 import { gql } from "@apollo/client";
 
 export const GET_RELEVANT_POSTS = gql`
-  query Query($username: String!) {
-    relevantPostsByUsername(username: $username) {
+query RelevantPostsByUsername($username: String!) {
+  relevantPostsByUsername(username: $username) {
+    id
+    user {
       id
-      user {
-        username
-      }
-      picUrl
-      description
+      username
+      password
+      email
+      roles
+    }
+    picUrl
+    description
+    createdAt
+    likes {
+      id
+    }
+    comments {
+      id
+      username
+      text
       createdAt
     }
   }
+}
 `;

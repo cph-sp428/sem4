@@ -9,9 +9,6 @@ function ExplorePage() {
   if (loading) return <p>Loading...</p>;
   if (error) throw error;
 
-  data.getAllPosts.sort( (a: Post,b : Post) => {
-    a.createdAt > b.createdAt ? -1 : 1
-  })
 
   return (
     <div id="explore-page-container">

@@ -21,6 +21,7 @@ export const GET_POSTS_BY_USERNAME = gql`
       }
       likes {
         id
+        username
       }
     }
   }

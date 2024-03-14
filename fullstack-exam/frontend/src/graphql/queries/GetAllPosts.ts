@@ -20,6 +20,10 @@ export const GET_ALL_POSTS = gql`
         createdAt
         username
       }
+      likes {
+        id
+        username
+      }
     }
   }
 `;

@@ -12,6 +12,9 @@ export const typeDefs = `#graphql
         addUser(username: String!, password: String!, email: String!): User
         addPost(username: String!, picUrl: String!, description: String!): Post
         addComment(username: String!, postId: String!, text: String!): Comment
+        likePost(postId: String!, username: String!): Post
+        followUser(username: String!, usernameToFollow: String!): User
+        updateUser(userId: String!, username: String!, password: String!, email: String!): User
     }
 
     type Token {
