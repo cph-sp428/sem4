@@ -63,9 +63,11 @@ export default {
     });
     return comment;
   },
-  likePost: async (_parent: never, args: { postId: string; username: string }) => {
+  likePost: async (_parent: never, args: { postId: string, username: string }) => {
+
     const user = await userModel.findOne({ username: args.username });
-    const post = await postModel.findById(args.postId);
+    const post = await postModel.findOne({ _id: args.postId });
+    
     if (!post) {
       throw new Error("Post not found");
     } else if (!user){

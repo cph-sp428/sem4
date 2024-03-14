@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 .main-div {
+  margin-top: 40%;
   display: flex;
   flex-direction: column;
   align-items: center;

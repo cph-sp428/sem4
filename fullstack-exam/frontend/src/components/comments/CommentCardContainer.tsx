@@ -1,4 +1,4 @@
-import { useId } from "react";
+import { useId, useState } from "react";
 import CommentCard from "./CommentCard";
 import Comment from "../../types/Comment";
 import CommentForm from "./CommentForm";
@@ -9,6 +9,7 @@ interface CommentCardContainerProps {
 }
 
 function CommentCardContainer({ comments, postID }: CommentCardContainerProps) {
+
   if (!comments || comments.length === 0) {
     return (
       <div id="comment-card-container">
@@ -17,6 +18,8 @@ function CommentCardContainer({ comments, postID }: CommentCardContainerProps) {
       </div>
     );
   }
+
+
 
   return (
     <div id="comment-card-container">

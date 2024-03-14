@@ -18,7 +18,12 @@ function EditProfilePage() {
     const [user, setUser] = useState<User>(data.userByUsername);
 
     const [updateUser] = useMutation(UPDATE_USER, {
-        variables: { user: user },
+        variables: { 
+            userId: data.userByUsername.id,
+            username: user.username,
+            password: user.password,
+            email: user.email,
+        },
     });
 
     if(loading) return <p>Loading...</p>;

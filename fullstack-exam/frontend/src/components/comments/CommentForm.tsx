@@ -5,12 +5,14 @@ import { useMutation } from "@apollo/client";
 import useAuth from "../../hooks/useAuth";
 import { GET_POSTS_BY_USERNAME } from "../../graphql/queries/GetPostsByUsername";
 import { GET_RELEVANT_POSTS } from "../../graphql/queries/GetRelevantPosts";
+import { useNavigate } from "react-router";
 
 interface CommentFormProps {
   postId: string;
 }
 
 function CommentForm({ postId }: CommentFormProps) {
+  const navigate = useNavigate();
   const [commentText, setCommentText] = useState("");
   const username = useAuth("user");
   // console.log(username);
@@ -30,6 +32,7 @@ function CommentForm({ postId }: CommentFormProps) {
 
   const handleClick = () => {
     addComment();
+    navigate(0);
   };
 
   if (loading) return <p>Loading...</p>;

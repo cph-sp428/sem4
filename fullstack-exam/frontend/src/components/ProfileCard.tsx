@@ -35,6 +35,10 @@ function ProfileCard({ username }: ProfileCardProps) {
     followProfile();
   };
 
+  const handleNewPost = () => {
+    navigate("/createPost");
+  };
+
   return (
     <div className="bg-blue shadow-md rounded-lg overflow-hidden">
       <img
@@ -48,20 +52,30 @@ function ProfileCard({ username }: ProfileCardProps) {
         <p className="text-center text-sm"># of POSTS: {user.posts.length}</p>
       )}
       {myProfile && (
-        <button
-          onClick={handleEdit}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Edit Profile
-        </button>
+        <>
+          <button
+            onClick={handleEdit}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Edit Profile
+          </button>
+          <button
+            onClick={handleNewPost}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            New Post
+          </button>
+        </>
       )}
       {!myProfile && (
-        <button
-          onClick={handleFollow}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Follow
-        </button>
+        <>
+          <button
+            onClick={handleFollow}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Follow
+          </button>
+        </>
       )}
     </div>
   );
