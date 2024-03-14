@@ -1,9 +1,9 @@
-import User from "../types/User";
+import User from "../../types/User";
 import { useQuery, useMutation } from "@apollo/client";
-import { GET_USER_BY_USERNAME } from "../graphql/queries/UserByUsername";
-import useAuth from "../hooks/useAuth";
-import { FOLLOW_USER } from "../graphql/mutations/FOLLOW_USER";
-import { useNavigate } from "react-router-dom";
+import { GET_USER_BY_USERNAME } from "../../graphql/queries/UserByUsername";
+import useAuth from "../../hooks/useAuth";
+import { FOLLOW_USER } from "../../graphql/mutations/FOLLOW_USER";
+import { Link, useNavigate } from "react-router-dom";
 
 interface ProfileCardProps {
   username: string | void;
@@ -45,7 +45,9 @@ function ProfileCard({ username }: ProfileCardProps) {
         className="h-32 w-32 rounded-full mx-auto"
         src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg"
       />
-      <h1 className="text-center text-3xl">{user.username}</h1>
+      <Link to={"/user/" + user.username}>
+        <h1 className="text-center text-3xl">{user.username}</h1>
+      </Link>
       <p className="text-center text-sm">EMAIL: {user.email}</p>
       <p className="text-center text-sm">ROLES: {user.roles}</p>
       {user.posts && (

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { authenticate, setToken } from "../utils/AuthFacade";
+import { authenticate, setToken } from "../../utils/AuthFacade";
 import { useQuery } from "@apollo/client";
-import { LOGIN } from "../graphql/queries/Login";
+import { LOGIN } from "../../graphql/queries/Login";
 import { useNavigate } from "react-router-dom";
 
 function LoginPage() {

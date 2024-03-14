@@ -5,6 +5,7 @@ import CommentCardContainer from "../comments/CommentCardContainer";
 import { LIKE_POST } from "../../graphql/mutations/LIKE_POST";
 import { dressPost } from "../../utils/PostFactory";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 interface PostCardProps {
   post: Post;
@@ -20,12 +21,11 @@ function PostCard({ post }: PostCardProps) {
   );
 
   const handleClick = () => {
-    if (isLiked) {
-      return;
+    if (!isLiked) {
+      likeComment();
+      setLikes(likes + 1);
+      setIsLiked(true);
     }
-    likeComment();
-    setLikes(likes + 1);
-    setIsLiked(true);
   };
 
   const [likeComment, { loading, error }] = useMutation(LIKE_POST, {
@@ -33,17 +33,20 @@ function PostCard({ post }: PostCardProps) {
       postId: post.id,
       username: user,
     },
-    refetchQueries: ["GetPosts"],
+    //refetchQueries: ["GetPosts"],
   });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="bg-blue shadow-md rounded-lg overflow-hidden">
+    <div className="bg-blue rounded-lg overflow-hidden shadow-2xl shadow-orange-500">
       <img className="h-60 w-60 relative mx-auto" src={post.picUrl} />
-      <h2 className="text-center text-xl">{post.user.username} - {post.description}</h2>
-
+      <Link to={"/user/" + post.user.username}>
+        <h2 className="text-center text-xl">
+          {post.user.username} - {post.description}
+        </h2>
+      </Link>
       <h2 className="text-center text-xl">
         <button onClick={handleClick}>Like</button>
         {likes} likes

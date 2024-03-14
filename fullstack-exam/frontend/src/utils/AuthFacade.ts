@@ -6,7 +6,7 @@ const cookies = new Cookies();
 
 export const removeToken = () => {
   cookies.remove("token");
-  redirect("/login");
+  //redirect("/login");
 };
 
 export const setToken = (token: string) => {

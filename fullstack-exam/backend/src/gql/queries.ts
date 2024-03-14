@@ -91,6 +91,18 @@ export default {
     //console.log(user);
     return user;
   },
+  searchPosts: async (
+    _parent: never,
+    args: { searchCriteria: string },
+    _context: any
+  ) => {
+    const posts = await postModel
+      .find({ description: { $regex: args.searchCriteria, $options: "i" } })
+      .populate("user")
+      .populate("comments")
+      .populate("likes");
+    return posts;
+  },
 };
 
 function authorizeToken(token: string) {

@@ -8,15 +8,17 @@ import {
   //gql,
 } from "@apollo/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LoginPage from "./components/LoginPage";
-import HomePage from "./components/HomePage";
+import LoginPage from "./components/pages/LoginPage";
+import HomePage from "./components/pages/HomePage";
 import Navbar from "./components/Navbar";
-import ProfilePage from "./components/ProfilePage";
-import ErrorPage from "./components/ErrorPage";
-import ExplorePage from "./components/ExplorePage";
-import EditProfilePage from "./components/EditProfilePage";
-import RegisterPage from "./components/RegisterPage";
-import CreatePostPage from "./components/CreatePostPage";
+import ProfilePage from "./components/pages/ProfilePage";
+import ErrorPage from "./components/pages/ErrorPage";
+import ExplorePage from "./components/pages/ExplorePage";
+import EditProfilePage from "./components/pages/EditProfilePage";
+import RegisterPage from "./components/pages/RegisterPage";
+import CreatePostPage from "./components/pages/CreatePostPage";
+import SearchPage from "./components/pages/SearchPage";
+import AdminPage from "./components/pages/AdminPage";
 
 /*
 
@@ -80,7 +82,15 @@ const router = createBrowserRouter([
       {
         path: "/createPost",
         element: <CreatePostPage />,
-      } 
+      },
+      {
+        path: "/search/:searchCriteria",
+        element: <SearchPage />
+      },
+      {
+        path: "/admin",
+        element: <AdminPage />,
+      }
     ],
     errorElement: <ErrorPage />,
   },

@@ -6,6 +6,7 @@ export const typeDefs = `#graphql
         relevantPostsByUsername(username: String!): [Post]
         postsByUsername(username: String) : [Post]
         userByUsername(username: String!) : User
+        searchPosts(searchCriteria: String!) : [Post]
     }
 
     type Mutation {

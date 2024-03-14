@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
-import { CREATE_POST } from "../graphql/mutations/CREATE_POST";
-import useAuth from "../hooks/useAuth";
+import { CREATE_POST } from "../../graphql/mutations/CREATE_POST";
+import useAuth from "../../hooks/useAuth";
 
 function CreatePostPage() {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
-import { REGISTER_USER } from "../graphql/mutations/REGISTER_USER";
+import { REGISTER_USER } from "../../graphql/mutations/REGISTER_USER";
 import { useNavigate } from "react-router-dom";
 
 function RegisterPage() {

@@ -1,11 +1,11 @@
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import { useQuery } from "@apollo/client";
-import { GET_USER_BY_USERNAME } from "../graphql/queries/UserByUsername";
+import { GET_USER_BY_USERNAME } from "../../graphql/queries/UserByUsername";
 import { useState } from "react";
-import User from "../types/User";
+import User from "../../types/User";
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-import { UPDATE_USER } from "../graphql/mutations/UPDATE_USER";
+import { UPDATE_USER } from "../../graphql/mutations/UPDATE_USER";
 
 function EditProfilePage() {
 

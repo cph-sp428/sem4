@@ -1,7 +1,7 @@
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import { useQuery } from "@apollo/client";
-import PostCardContainer from "./posts/PostCardContainer";
-import { GET_RELEVANT_POSTS } from "../graphql/queries/GetRelevantPosts";
+import PostCardContainer from "../posts/PostCardContainer";
+import { GET_RELEVANT_POSTS } from "../../graphql/queries/GetRelevantPosts";
 import { useEffect, useState } from "react";
 
 function HomePage() {

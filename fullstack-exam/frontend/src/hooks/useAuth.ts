@@ -5,7 +5,7 @@ function useAuth(role: string) : string | void {
   const { isValid, username } = authenticate(role);
 
   if (!isValid) {
-    redirect("/login");
+    redirect("/home");
   } else {
     return username;
   }
