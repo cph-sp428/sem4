@@ -40,7 +40,7 @@ function ProfileCard({ username }: ProfileCardProps) {
   };
 
   return (
-    <div className="bg-blue shadow-md rounded-lg overflow-hidden">
+    <div className=" shadow-black shadow-md rounded-lg overflow-hidden">
       <img
         className="h-32 w-32 rounded-full mx-auto"
         src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg"

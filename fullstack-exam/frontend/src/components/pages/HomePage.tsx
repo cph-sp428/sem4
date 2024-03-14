@@ -25,7 +25,6 @@ function HomePage() {
   return (
     <div>
       <h1>Home Page</h1>
-      <p>Welcome to the home page</p>
       <PostCardContainer
         posts={data.relevantPostsByUsername}
         errorMessage="No Relevant Posts... Try following more people"

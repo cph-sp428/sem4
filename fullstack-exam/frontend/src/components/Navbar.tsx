@@ -19,7 +19,8 @@ function Navbar() {
   };
 
   return (
-    <div className="main-div">
+    <div id="main-div">
+      <div id="navbar-container">
       <ul id="navbar">
         <li>
           <a className="navbar-brand">INSTAGRAM</a>
@@ -33,14 +34,14 @@ function Navbar() {
         )}
         {username ? (
           <>
-            <li>
+            {/* <li>
               <input id="search-bar"
                 type="text"
                 value={searchCriteria}
                 onChange={(e) => setSearchCriteria(e.target.value)}
               />
               <Link to={"/search/" + searchCriteria}>Search</Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/home">Home</Link>
             </li>
@@ -63,6 +64,7 @@ function Navbar() {
         )}
         {username ? <li onClick={handleLogout}>Logout</li> : <></>}
       </ul>
+      </div>
       <div id="content-div">
         <Outlet />
       </div>

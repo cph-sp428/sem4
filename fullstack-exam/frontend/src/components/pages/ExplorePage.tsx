@@ -11,6 +11,7 @@ function ExplorePage() {
 
   return (
     <div id="explore-page-container">
+      <h1>EXPLORE</h1>
       <PostCardContainer
         posts={data.getAllPosts}
         errorMessage="911 - MASSIVE SERVER ERROR..."

@@ -40,7 +40,7 @@ function PostCard({ post }: PostCardProps) {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="bg-blue rounded-lg overflow-hidden shadow-2xl shadow-orange-500">
+    <div className="bg-blue rounded-lg overflow-hidden shadow-2xl shadow-gray-900">
       <img className="h-60 w-60 relative mx-auto" src={post.picUrl} />
       <Link to={"/user/" + post.user.username}>
         <h2 className="text-center text-xl">

@@ -40,7 +40,7 @@ function CommentForm({ postId }: CommentFormProps) {
 
   return (
     <div id="comment-form">
-      <input
+      <input id="comment-input"
         type="text"
         placeholder="Write a comment"
         onChange={(e) => setCommentText(e.target.value)}

@@ -22,7 +22,8 @@ import AdminPage from "./components/pages/AdminPage";
 
 /*
 
-TODO:
+TODO:                 WORKED:
+
 1. refetchQueries ???
 2. add backend populate methods 
 3. populate the database
@@ -31,16 +32,16 @@ TODO:
 6. ------------------implement the numberOfPosts literals
 6. implement grid layout vs column layout
   - useState boolean isGrid
-7. implement the search bar
+7. ------------------implement the search bar
 8. ------------------implement the follow button
 9. ------------------implement the register page
 10. -----------------implement the createPost page
 
-1. bug in logout - navbar
+1. ------------------bug in logout - navbar
 2. implement better authorization (missing backend)
 3. fix the error page
-4. fix the nav bar
-5. fix the login page
+4. ------------------fix the nav bar
+5. ------------------fix the login page
 
 */
 

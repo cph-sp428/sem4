@@ -38,7 +38,7 @@ function RegisterPage() {
                 <input type="password" value={userInfo.password} onChange={(e) => setUserInfo({...userInfo, password: e.target.value})} />
                 <label>Email</label>
                 <input type="text" value={userInfo.email} onChange={(e) => setUserInfo({...userInfo, email: e.target.value})} />
-                <button type="submit">Register</button>
+                <button className=" border-slate-100" type="submit">Register</button>
             </form>
         </div>
      );

@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-.main-div {
+
+#main-div {
   margin-top: auto;
   height: 100%;
   display: flex;
@@ -16,8 +17,55 @@
   min-width: 80%;
 }
 
+#navbar-container{
+  margin-left: 70%;
+  min-width: 50%;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  background-color: #444242;
+  color: white;
+}
+
+#register-page{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+#comment-input{
+  max-width: 55%;
+}
+
+h1{
+  margin: 10px;
+  padding: 10px;
+  font-size: 2em;
+  font-weight: 600;
+
+}
+
+input{
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #000;
+  width: 75%;
+
+}
+ form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+}
+
 #content-div{
-  
   margin-top: 5%;
   padding-top: 2%;
   padding-bottom: 2%;
@@ -27,6 +75,7 @@
   max-width: 50%;
   box-sizing: border-box;
 }
+
 
 #navbar {
   position: absolute;
