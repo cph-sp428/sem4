@@ -3,7 +3,7 @@ import User from "./User";
 
 type Comment = {
   id: string;
-  user: User;
+  username: string;
   post: Post;
   text: string;
   createdAt: Date;

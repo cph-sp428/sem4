@@ -31,7 +31,11 @@ export default {
 
     return { token: token };
   },
-  getAllPosts: async (_parent: never, _context: any) => await postModel.find().populate("user").populate("comments").populate("user"),
+  getAllPosts: async (_parent: never, _context: any) =>
+    await postModel
+    .find()
+    .populate("user")
+    .populate("comments"),
   relevantPostsByUsername: async (
     _parent: never,
     args: { username: string },
@@ -51,12 +55,13 @@ export default {
     _context: any
   ) => {
     const user = await userModel.findOne({ username: args.username });
+    if (!user) {
+      throw new Error("User not found");
+    }
     const posts = await postModel
-      .find({ user: user?._id })
-      .populate({
-        path: "comments",
-        populate: { path: "user" },
-      })
+      .find({ user: user._id })
+      .populate("user")
+      .populate("comments");
     return posts;
   },
   userByUsername: async (
@@ -65,10 +70,11 @@ export default {
     _context: any
   ) => {
     const user = await userModel
-    .findOne({ username: args.username }).populate("posts").populate("posts.comments");
+      .findOne({ username: args.username })
+      .populate("posts");
     if (!user) {
       throw new Error("User not found");
     }
     return user;
-  }
+  },
 };

@@ -17,7 +17,7 @@ function Navbar() {
   };
 
   return (
-    <>
+    <div className="main-div">
       <nav className="">
         <a className="navbar-brand">INSTAGRAM</a>
         {username ? (
@@ -44,7 +44,7 @@ function Navbar() {
       </nav>
 
       <Outlet />
-    </>
+    </div>
   );
 }
 

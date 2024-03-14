@@ -4,6 +4,9 @@ export const GET_POSTS_BY_USERNAME = gql`
   query Query($username: String) {
     postsByUsername(username: $username) {
       id
+      user {
+        username
+      }
       picUrl
       description
       createdAt
@@ -12,6 +15,7 @@ export const GET_POSTS_BY_USERNAME = gql`
       }
       comments {
         id
+        username
         text
         createdAt
       }

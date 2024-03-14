@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Comment from "../../types/Comment";
 
 interface CommentCardProps {
@@ -8,8 +9,8 @@ function CommentCard( {comment} : CommentCardProps) {
     
     return ( 
         <div id="comment-card">
-            {/* <p >{comment.user.username}</p> */}
-            <p >{comment.text}</p>
+            <Link to={`/user/${comment.username}`}>{comment.username} : </Link>
+            {comment.text}
         </div>
      );
 }

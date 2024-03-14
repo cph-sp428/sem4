@@ -2,6 +2,7 @@ export const typeDefs = `#graphql
     type Query {
         login(username: String!, password: String!) : Token
         getAllPosts: [Post]
+        getAllPostsTwo: [Post]
         relevantPostsByUsername(username: String!): [Post]
         postsByUsername(username: String) : [Post]
         userByUsername(username: String!) : User
@@ -46,7 +47,7 @@ export const typeDefs = `#graphql
 
     type Comment {
         id: ID!
-        user: User!
+        username: String!
         post: Post!
         text: String!
         createdAt: String!

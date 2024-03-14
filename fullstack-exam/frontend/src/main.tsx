@@ -5,7 +5,7 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  gql,
+  //gql,
 } from "@apollo/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginPage from "./components/LoginPage";
@@ -20,6 +20,7 @@ import ExplorePage from "./components/ExplorePage";
 TODO:
 1. add comments - username
 2. add backend populate methods 
+3. populate the database
 
 3. fix the error page
 4. fix the nav bar

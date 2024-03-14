@@ -51,7 +51,7 @@ export default {
     const post = await postModel.findById(args.postId);
 
     const comment = await commentModel.create({
-      user: user,
+      username: args.username,
       post: post,
       text: args.text,
     });
