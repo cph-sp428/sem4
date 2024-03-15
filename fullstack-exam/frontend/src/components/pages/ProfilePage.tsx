@@ -9,14 +9,13 @@ import { useNavigate } from "react-router-dom";
 function ProfilePage() {
   let currentUsername = useAuth("user");
   const { username } = useParams();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   if (username || !currentUsername) {
     currentUsername = username;
   }
 
-
-  const {loading, error, data} = useQuery(GET_POSTS_BY_USERNAME, {
+  const { loading, error, data } = useQuery(GET_POSTS_BY_USERNAME, {
     variables: { username: currentUsername },
   });
 
@@ -25,7 +24,7 @@ function ProfilePage() {
 
   return (
     <div>
-      <ProfileCard username={currentUsername}/>
+      <ProfileCard username={currentUsername} />
 
       <PostCardContainer
         posts={data.postsByUsername}
@@ -33,7 +32,6 @@ function ProfilePage() {
       />
     </div>
   );
-
 }
 
 export default ProfilePage;

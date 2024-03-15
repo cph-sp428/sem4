@@ -31,17 +31,20 @@ TODO:                 WORKED:
 5. ------------------implement the numberOfLikes literals
 6. ------------------implement the numberOfPosts literals
 6. implement grid layout vs column layout
-  - useState boolean isGrid
 7. ------------------implement the search bar
 8. ------------------implement the follow button
 9. ------------------implement the register page
 10. -----------------implement the createPost page
+11. liked posts -> heart icon
+12. removeLike functionality
 
 1. ------------------bug in logout - navbar
 2. implement better authorization (missing backend)
 3. fix the error page
 4. ------------------fix the nav bar
 5. ------------------fix the login page
+6. stateful components
+7. fix unnecessary re-renders
 
 */
 
