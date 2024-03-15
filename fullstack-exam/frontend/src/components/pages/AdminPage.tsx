@@ -56,8 +56,6 @@ function AdminPage() {
   return (
     <div id="admin-page-container">
       <h1 className=" text-center">Admin Page</h1>
-
-      <h2>Reported Posts</h2>
       <div>
         {reportedPosts.map((post: Post) => (
           <div key={post.id}>

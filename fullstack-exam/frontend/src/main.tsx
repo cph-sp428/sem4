@@ -41,9 +41,9 @@ TODO:                 WORKED:
 11. -----------------liked posts -> heart icon
 12. -----------------removeLike functionality
 13. -----------------implement the admin page
-14. 
+14. ------------------implement the editProfile page
 
-
+5. ------------------massive bcrypt bug
 6. !!!!!! stateful components w/ useContext !!!!!! the big one 
 2. !!!!!! implement better authorization (missing backend)
 1. bug in logout - navbar
@@ -52,6 +52,7 @@ TODO:                 WORKED:
 5. ------------------fix the login page
 7. fix unnecessary re-renders
 8. implement confirmDialog
+
 
 */
 
