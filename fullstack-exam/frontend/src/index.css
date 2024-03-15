@@ -19,7 +19,6 @@
 
 #navbar-container{
   margin-left: 70%;
-  min-width: 50%;
   display: flex;
   justify-content: space-between;
   width: 100%;

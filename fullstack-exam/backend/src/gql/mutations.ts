@@ -5,6 +5,7 @@ import commentModel from "../models/commentModel";
 import User from "../types/User";
 import Post from "../types/Post";
 import Comment from "../types/Comment";
+import ReportedModel from "../models/reportedModel";
 
 export default {
   addUser: async (
@@ -74,8 +75,9 @@ export default {
       throw new Error("User not found");
     }
     if(post.likes.includes(user._id)) {
-      //return JSON.stringify({error: "Post Already Liked..."});
-      throw new Error("Post already liked");
+      post.likes = post.likes.filter((like) => like.toString() !== user._id.toString());
+      post.save();
+      return post;
     }
     post.likes.push(user._id);
     post.save();
@@ -93,6 +95,18 @@ export default {
     return userToFollow;
   },
   updateUser: async (_parent: never, args: { userId: string, username: string, password: string, email: string}) => {
+    
+    const isUsernameUnique = await userModel.findOne({ username: args.username }) !== null;
+
+    if(!isUsernameUnique){
+      throw new Error("Username already exists");
+    }
+
+    const isEmailUnique = await userModel.findOne({ email: args.email }) !== null;
+    if(!isEmailUnique){
+      throw new Error("Email already exists");
+    }
+    
     const user = await userModel.findById(args.userId);
     if(!user){
       throw new Error("User not found");
@@ -103,4 +117,13 @@ export default {
     user.save();
     return user;
   },
+  reportPost: async (_parent: never, args: { postId: string }) => {
+    const post = await ReportedModel.findOne({ post: args.postId });
+    if(post){
+      return post;
+    }
+    const reportedPost = await ReportedModel.create({ post: args.postId });
+    return reportedPost;
+
+  }
 };

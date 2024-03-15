@@ -7,6 +7,7 @@ export const typeDefs = `#graphql
         postsByUsername(username: String) : [Post]
         userByUsername(username: String!) : User
         searchPosts(searchCriteria: String!) : [Post]
+        getAllReportedPosts: [Post]
     }
 
     type Mutation {
@@ -16,6 +17,7 @@ export const typeDefs = `#graphql
         likePost(postId: String!, username: String!): Post
         followUser(username: String!, usernameToFollow: String!): User
         updateUser(userId: String!, username: String!, password: String!, email: String!): User
+        reportPost(postId: String!): Post
     }
 
     type Token {

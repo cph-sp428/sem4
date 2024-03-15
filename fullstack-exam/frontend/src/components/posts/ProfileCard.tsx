@@ -4,6 +4,8 @@ import { GET_USER_BY_USERNAME } from "../../graphql/queries/UserByUsername";
 import useAuth from "../../hooks/useAuth";
 import { FOLLOW_USER } from "../../graphql/mutations/FOLLOW_USER";
 import { Link, useNavigate } from "react-router-dom";
+import { GET_ALL_POSTS } from "../../graphql/queries/GetAllPosts";
+import { GET_RELEVANT_POSTS } from "../../graphql/queries/GetRelevantPosts";
 
 interface ProfileCardProps {
   username: string | void;
@@ -20,6 +22,11 @@ function ProfileCard({ username }: ProfileCardProps) {
 
   const [followProfile] = useMutation(FOLLOW_USER, {
     variables: { username: myUsername, usernameToFollow: username },
+    refetchQueries: [
+      { query: GET_ALL_POSTS },
+      { query: GET_RELEVANT_POSTS, variables: { username: myUsername } },
+      { query: GET_USER_BY_USERNAME, variables: { username: username } },
+    ],
   });
 
   if (loading) return <p>Loading...</p>;

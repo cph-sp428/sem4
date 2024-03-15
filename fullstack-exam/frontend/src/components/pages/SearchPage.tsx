@@ -6,11 +6,11 @@ import Post from "../../types/Post";
 
 function SearchPage() {
 
-    const searchCritera = useParams();
-    console.log(searchCritera);
+    const params = useParams();
+    console.log(params);
 
     const { loading, error, data } = useQuery(SEARCH_POSTS, {
-        variables: searchCritera
+        variables: params
     });
 
     if (loading) return <p>Loading...</p>;
@@ -18,11 +18,10 @@ function SearchPage() {
 
     const posts = data.searchPosts;
 
-    if(!posts || posts.length === 0) return (<p>No posts found</p>);
-
     return ( 
         <div id="search-page-container">
-            <h1>Search Page</h1>
+            <h2 className=" text-center">Search Results For: {params.searchCriteria}</h2>
+            {posts.length === 0 && <p>No posts found...</p>}
             {posts.map((post : Post) => {
                 return (
                     <PostCard key={post.id} post={post} />

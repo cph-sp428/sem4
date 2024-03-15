@@ -34,14 +34,14 @@ function Navbar() {
         )}
         {username ? (
           <>
-            {/* <li>
+            <li>
               <input id="search-bar"
                 type="text"
                 value={searchCriteria}
                 onChange={(e) => setSearchCriteria(e.target.value)}
               />
               <Link to={"/search/" + searchCriteria}>Search</Link>
-            </li> */}
+            </li>
             <li>
               <Link to="/home">Home</Link>
             </li>

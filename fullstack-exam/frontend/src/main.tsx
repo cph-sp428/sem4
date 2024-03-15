@@ -25,7 +25,7 @@ import AdminPage from "./components/pages/AdminPage";
 TODO:                 WORKED:
 
 1. refetchQueries ???
-2. add backend populate methods 
+2. ------------------add backend populate methods 
 3. populate the database
 4. ------------------implement the like button
 5. ------------------implement the numberOfLikes literals
@@ -35,16 +35,19 @@ TODO:                 WORKED:
 8. ------------------implement the follow button
 9. ------------------implement the register page
 10. -----------------implement the createPost page
-11. liked posts -> heart icon
-12. removeLike functionality
+11. -----------------liked posts -> heart icon
+12. -----------------removeLike functionality
+13. --------implement the admin page
+14. 
 
 1. ------------------bug in logout - navbar
 2. implement better authorization (missing backend)
 3. fix the error page
 4. ------------------fix the nav bar
 5. ------------------fix the login page
-6. stateful components
+6. stateful components w/ useContext
 7. fix unnecessary re-renders
+8. implement confirmDialog
 
 */
 
@@ -89,12 +92,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/search/:searchCriteria",
-        element: <SearchPage />
+        element: <SearchPage />,
       },
       {
         path: "/admin",
         element: <AdminPage />,
-      }
+      },
     ],
     errorElement: <ErrorPage />,
   },

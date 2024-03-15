@@ -5,6 +5,7 @@ import { JWT_SECRET } from "../config";
 import jwt from "jsonwebtoken";
 import User from "../types/User";
 import Post from "../types/Post";
+import ReportedModel from "../models/reportedModel";
 
 export default {
   login: async (
@@ -101,6 +102,11 @@ export default {
       .populate("user")
       .populate("comments")
       .populate("likes");
+    return posts;
+  },
+  getAllReportedPosts: async (_parent: never, _context: any) => {
+    const reportedPosts = await ReportedModel.find().populate("post");
+    const posts = reportedPosts.map((reportedPost) => reportedPost.post);
     return posts;
   },
 };

@@ -1,20 +1,32 @@
 import { useState } from "react";
 import { authenticate, setToken } from "../../utils/AuthFacade";
-import { useQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import { LOGIN } from "../../graphql/queries/Login";
 import { useNavigate } from "react-router-dom";
+import { set } from "mongoose";
 
 function LoginPage() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { loading, error, data } = useQuery(LOGIN, {
+  const {loading, error, data} = useQuery(LOGIN, {
     variables: { username: username, password: password },
   });
 
+  const validateForm = (
+    username.length > 0 &&
+    password.length > 0
+  )
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    if (!validateForm) {
+      alert("Please fill in all fields");
+      setUsername("");
+      setPassword("");
+      return;
+    }
+    
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
