@@ -5,7 +5,7 @@ function ErrorPage() {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate("")
+        navigate("/home")
     }
 
   return (

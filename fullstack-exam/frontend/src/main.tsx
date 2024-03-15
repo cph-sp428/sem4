@@ -5,6 +5,7 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
+  useQuery,
   //gql,
 } from "@apollo/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -19,6 +20,8 @@ import RegisterPage from "./components/pages/RegisterPage";
 import CreatePostPage from "./components/pages/CreatePostPage";
 import SearchPage from "./components/pages/SearchPage";
 import AdminPage from "./components/pages/AdminPage";
+import Post from "./types/Post";
+import { GET_ALL_POSTS } from "./graphql/queries/GetAllPosts";
 
 /*
 
@@ -26,7 +29,7 @@ TODO:                 WORKED:
 
 1. refetchQueries ???
 2. ------------------add backend populate methods 
-3. populate the database
+3. ------------------populate the database
 4. ------------------implement the like button
 5. ------------------implement the numberOfLikes literals
 6. ------------------implement the numberOfPosts literals
@@ -37,19 +40,25 @@ TODO:                 WORKED:
 10. -----------------implement the createPost page
 11. -----------------liked posts -> heart icon
 12. -----------------removeLike functionality
-13. --------implement the admin page
+13. -----------------implement the admin page
 14. 
 
-1. ------------------bug in logout - navbar
-2. implement better authorization (missing backend)
+
+6. !!!!!! stateful components w/ useContext !!!!!! the big one 
+2. !!!!!! implement better authorization (missing backend)
+1. bug in logout - navbar
 3. fix the error page
 4. ------------------fix the nav bar
 5. ------------------fix the login page
-6. stateful components w/ useContext
 7. fix unnecessary re-renders
 8. implement confirmDialog
 
 */
+
+const PostContext = React.createContext({
+  allPosts: [] as Array<Post>,
+  setAllPosts: (posts: Array<Post>) => {},
+});
 
 const router = createBrowserRouter([
   {
@@ -108,10 +117,11 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <RouterProvider router={router} />
+        <RouterProvider router={router} />
     </ApolloProvider>
   </React.StrictMode>
 );

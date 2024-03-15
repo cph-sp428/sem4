@@ -20,51 +20,51 @@ function Navbar() {
 
   return (
     <div id="main-div">
-      <div id="navbar-container">
-      <ul id="navbar">
-        <li>
-          <a className="navbar-brand">INSTAGRAM</a>
-        </li>
-        {isValid ? (
-          <li>
-            <Link to="/admin">Admin Page</Link>
-          </li>
-        ) : (
-          <></>
-        )}
-        {username ? (
-          <>
+      {/* <div id="navbar-container" className=" flex flex-row"> */}
+        <ul id="navbar">
+          {isValid ? (
             <li>
-              <input id="search-bar"
-                type="text"
-                value={searchCriteria}
-                onChange={(e) => setSearchCriteria(e.target.value)}
-              />
-              <Link to={"/search/" + searchCriteria}>Search</Link>
+              <Link to="/admin">Admin Page</Link>
             </li>
-            <li>
-              <Link to="/home">Home</Link>
-            </li>
-            <li>
-              <Link to="/explore">Explore</Link>
-            </li>
-            <li>
-              <Link to="/user/">My Profile</Link>
-            </li>
-          </>
-        ) : (
-          <>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/register">Register</Link>
-            </li>
-          </>
-        )}
-        {username ? <li onClick={handleLogout}>Logout</li> : <></>}
-      </ul>
-      </div>
+          ) : (
+            <></>
+          )}
+          {username ? (
+            <>
+              <li>
+                {/* <div id="search-bar-container">
+                  <input
+                    id="search-bar"
+                    type="text"
+                    value={searchCriteria}
+                    onChange={(e) => setSearchCriteria(e.target.value)}
+                  />
+                  <Link to={"/search/" + searchCriteria}>Search</Link>
+                </div> */}
+              </li>
+              <li>
+                <Link to="/home">Home</Link>
+              </li>
+              <li>
+                <Link to="/explore">Explore</Link>
+              </li>
+              <li>
+                <Link to="/user/">My Profile</Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/register">Register</Link>
+              </li>
+            </>
+          )}
+          {username ? <li onClick={handleLogout}><Link to={""}> Logout </Link></li> : <></>}
+        </ul>
+      {/* </div> */}
       <div id="content-div">
         <Outlet />
       </div>

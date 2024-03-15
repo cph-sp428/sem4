@@ -47,7 +47,10 @@ function ProfileCard({ username }: ProfileCardProps) {
   };
 
   return (
-    <div className=" shadow-black shadow-md rounded-lg overflow-hidden">
+    <div
+      className=" shadow-black shadow-md rounded-lg overflow-hidden"
+      id="profile-card-container"
+    >
       <img
         className="h-32 w-32 rounded-full mx-auto"
         src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg"
@@ -56,7 +59,7 @@ function ProfileCard({ username }: ProfileCardProps) {
         <h1 className="text-center text-3xl">{user.username}</h1>
       </Link>
       <p className="text-center text-sm">EMAIL: {user.email}</p>
-      <p className="text-center text-sm">ROLES: {user.roles}</p>
+      <p className="text-center text-sm">ROLES: {user.roles.toString()}</p>
       {user.posts && (
         <p className="text-center text-sm"># of POSTS: {user.posts.length}</p>
       )}

@@ -37,7 +37,8 @@ export default {
       .find()
       .populate("user")
       .populate("comments")
-      .populate("likes"),
+      .populate("likes")
+      .sort({ createdAt: -1 }),
   relevantPostsByUsername: async (
     _parent: never,
     args: { username: string },
@@ -55,8 +56,8 @@ export default {
       .find({ user: { $in: following } })
       .populate("user")
       .populate("comments")
-      .populate("likes");
-      // console.log(posts);
+      .populate("likes")
+      .sort({ createdAt: -1 });
     return posts;
   },
   postsByUsername: async (

@@ -120,10 +120,38 @@ export default {
   reportPost: async (_parent: never, args: { postId: string }) => {
     const post = await ReportedModel.findOne({ post: args.postId });
     if(post){
-      return post;
+      throw new Error("Post already reported");
     }
     const reportedPost = await ReportedModel.create({ post: args.postId });
     return reportedPost;
 
+  },
+  removePost: async (_parent: never, args: { postId: string }) => {
+    const post = await postModel.findByIdAndDelete(args.postId);
+    if(!post){
+      throw new Error("Post not found");
+    }
+
+    const report = await ReportedModel.findOneAndDelete({ post: post._id });
+
+    const user = await userModel.findById(post.user);
+    if(user){
+      user.posts = user.posts.filter((postId) => postId.toString() !== post._id.toString());
+      user.save();
+    }
+
+    const comments = await commentModel.find({ post: post._id });
+    comments.forEach((comment) => {
+      commentModel.findByIdAndDelete(comment._id);
+    });
+
+    return post;
+  },
+  removeReport: async (_parent: never, args: { postId: string }) => {
+    const reportedPost = await ReportedModel.findOneAndDelete({ post: args.postId });
+    if(!reportedPost){
+      throw new Error("Reported post not found");
+    }
+    return reportedPost;
   }
 };

@@ -32,7 +32,6 @@ function CommentForm({ postId }: CommentFormProps) {
 
   const handleClick = () => {
     addComment();
-    navigate(0);
   };
 
   if (loading) return <p>Loading...</p>;
@@ -41,11 +40,12 @@ function CommentForm({ postId }: CommentFormProps) {
   return (
     <div id="comment-form">
       <input id="comment-input"
+      className="border-3 border-gray-300 p-2 background-white"
         type="text"
-        placeholder="Write a comment"
+        placeholder="write a comment..."
         onChange={(e) => setCommentText(e.target.value)}
       />
-      <button onClick={handleClick}>Comment</button>
+      <button className="border-3 border-gray-300 p-2 background-white" onClick={handleClick}>Comment</button>
     </div>
   );
 }

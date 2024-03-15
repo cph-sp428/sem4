@@ -18,6 +18,8 @@ export const typeDefs = `#graphql
         followUser(username: String!, usernameToFollow: String!): User
         updateUser(userId: String!, username: String!, password: String!, email: String!): User
         reportPost(postId: String!): Post
+        removePost(postId: String!): Post
+        removeReport(postId: String!): Post
     }
 
     type Token {

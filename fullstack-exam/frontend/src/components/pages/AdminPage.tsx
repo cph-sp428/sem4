@@ -1,11 +1,28 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import useAuth from "../../hooks/useAuth";
 import { GET_ALL_REPORTED_POSTS } from "../../graphql/queries/GET_ALL_REPORTED_POSTS";
 import Post from "../../types/Post";
 import { useEffect, useState } from "react";
+import { REMOVE_POST } from "../../graphql/mutations/REMOVE_POST";
+import { REMOVE_REPORT } from "../../graphql/mutations/REMOVE_REPORT";
 
 function AdminPage() {
+  
   const admin = useAuth("admin");
+
+  const { loading, error, data } = useQuery(GET_ALL_REPORTED_POSTS);
+
+  const [removePost] = useMutation(REMOVE_POST);
+
+  const [removeReport] = useMutation(REMOVE_REPORT);
+
+  const [reportedPosts, setReportedPosts] = useState<Post[]>([]);
+
+  useEffect(() => {
+    if (data) {
+      setReportedPosts(data.getAllReportedPosts);
+    }
+  }, [loading]);
 
   if (!admin) {
     return (
@@ -16,20 +33,25 @@ function AdminPage() {
     );
   }
 
-  const { loading, error, data } = useQuery(GET_ALL_REPORTED_POSTS);
-
-  const handleRemovePost = () => {
-    console.log("remove post");
-  };
-  const handleRemoveReport = () => {
-    console.log("remove report");
-  };
-
   if (loading) return <p>Loading...</p>;
   if (error) {
     console.log(error);
     return <p>Error</p>;
   }
+
+  const handleRemovePost = (id: string) => {
+    removePost({
+      variables: { postId: id },
+    });
+    setReportedPosts(reportedPosts.filter((post) => post.id !== id));
+  };
+
+  const handleRemoveReport = (id: string) => {
+    removeReport({
+      variables: { postId: id },
+    });
+    setReportedPosts(reportedPosts.filter((post) => post.id !== id));
+  };
 
   return (
     <div id="admin-page-container">
@@ -37,20 +59,20 @@ function AdminPage() {
 
       <h2>Reported Posts</h2>
       <div>
-        {data.getAllReportedPosts.map((post: Post) => (
+        {reportedPosts.map((post: Post) => (
           <div key={post.id}>
             <img src={post.picUrl} alt="post" />
             <p>{post.description}</p>
             <p>{post.createdAt.toString()}</p>
             <button
               className=" border-orange-700 bg-orange-500 hover:border-red-700"
-              onClick={handleRemovePost}
+              onClick={() => handleRemovePost(post.id)}
             >
               Remove Post
             </button>
             <button
               className=" border-emerald-800 bg-green-400"
-              onClick={handleRemoveReport}
+              onClick={() => handleRemoveReport(post.id)}
             >
               Remove Report
             </button>

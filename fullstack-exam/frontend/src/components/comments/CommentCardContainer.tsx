@@ -12,8 +12,7 @@ function CommentCardContainer({ comments, postID }: CommentCardContainerProps) {
 
   if (!comments || comments.length === 0) {
     return (
-      <div id="comment-card-container">
-        <h3>No Comments...</h3>
+      <div id="comment-card-container" className=" text-center">
         <CommentForm postId={postID} />
       </div>
     );
