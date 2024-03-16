@@ -40,12 +40,16 @@ TODO:                 WORKED:
 13. -----------------implement the admin page
 14. ------------------implement the editProfile page
 15. -----------------unfollow button
+16. remove post functionality
+17. showing the number of followers
+18. showing the number of following
+19. admin having clean up functionality - db
 
 5. ------------------massive bcrypt bug
-6. !!!!!! stateful components w/ useContext !!!!!! the big one 
+6. ---------!!!!!! stateful components w/ useContext? (used refetchQueries)
 7. ---------!!!!!! implement scalable ui
 2. !!!!!! implement better authorization (missing backend)
-1. bug in logout - navbar
+1. bug in logout - navbar ????
 3. ------------------fix the error page
 4. ------------------fix the nav bar
 5. ------------------fix the login page

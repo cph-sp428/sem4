@@ -3,8 +3,6 @@ import userModel from "../models/userModel";
 import postModel from "../models/postModel";
 import commentModel from "../models/commentModel";
 import User from "../types/User";
-import Post from "../types/Post";
-import Comment from "../types/Comment";
 import ReportedModel from "../models/reportedModel";
 
 export default {
@@ -74,11 +72,13 @@ export default {
     } else if (!user){
       throw new Error("User not found");
     }
+    // removes like if user already liked the post
     if(post.likes.includes(user._id)) {
       post.likes = post.likes.filter((like) => like.toString() !== user._id.toString());
       post.save();
       return post;
     }
+    // saves userId in array of "likes"
     post.likes.push(user._id);
     post.save();
     return post;
@@ -92,13 +92,17 @@ export default {
       throw new Error("User not found");
     }
 
+    // if user is already following the userToFollow, remove the follow
     if(user.following.includes(userToFollow._id)){
-      throw new Error("User already followed");
+      user.following.filter((id) => id.toString() !== userToFollow._id.toString());
+      userToFollow.followers.filter((id) => id.toString() !== user._id.toString());
+      user.save();
+      userToFollow.save();
+      return userToFollow;
     }
 
     user.following.push(userToFollow._id);
     userToFollow.followers.push(user._id);
-
     user.save();
     userToFollow.save();
 

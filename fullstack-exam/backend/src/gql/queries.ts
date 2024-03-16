@@ -3,10 +3,7 @@ import userModel from "../models/userModel";
 import postModel from "../models/postModel";
 import { JWT_SECRET } from "../config";
 import jwt from "jsonwebtoken";
-import User from "../types/User";
-import Post from "../types/Post";
 import ReportedModel from "../models/reportedModel";
-import { opendir } from "fs";
 
 export default {
   login: async (
@@ -33,7 +30,7 @@ export default {
 
     return { token: token };
   },
-  getAllPosts: async (_parent: never, _context: any) =>
+  getAllPosts: async (_parent: never, args: never) =>
     await postModel
       .find()
       .populate("user")
@@ -127,7 +124,9 @@ export default {
     if (!user || !userToFollow) {
       throw new Error("User not found");
     }
-    return user.following.some(id => id.toString() === userToFollow._id.toString());
+    return user.following.some(
+      (id) => id.toString() === userToFollow._id.toString()
+    );
   },
 };
 
@@ -136,5 +135,4 @@ function authorizeToken(token: string) {
   if (!decodedToken) {
     throw new Error("Invalid token");
   }
-  return decodedToken;
 }

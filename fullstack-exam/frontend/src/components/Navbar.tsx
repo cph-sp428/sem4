@@ -1,11 +1,11 @@
-import { Outlet, useNavigate, Link } from "react-router-dom";
+import { Outlet, useNavigate, Link, Await } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { authenticate, removeToken } from "../utils/AuthFacade";
 import { useEffect, useState } from "react";
 
 function Navbar() {
   const redirect = useNavigate();
-  const username = useAuth("user");
+  let username = useAuth("user");
   const { isValid } = authenticate("admin");
   const [searchCriteria, setSearchCriteria] = useState("");
 

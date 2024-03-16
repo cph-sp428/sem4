@@ -24,6 +24,9 @@ function EditProfilePage() {
             password: user.password,
             email: user.email,
         },
+        refetchQueries: [
+            { query: GET_USER_BY_USERNAME, variables: { username: user.username } }
+        ]
     });
 
     if(loading) return <p>Loading...</p>;

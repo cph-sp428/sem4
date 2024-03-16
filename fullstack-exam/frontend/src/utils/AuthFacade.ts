@@ -16,6 +16,10 @@ export const setToken = (token: string) => {
   // redirect("/home");
 };
 
+export const getToken = () => {
+  return cookies.get("token");
+};
+
 export const authenticate = (role: string) => {
   const token : string = cookies.get("token");
   if (!token) {

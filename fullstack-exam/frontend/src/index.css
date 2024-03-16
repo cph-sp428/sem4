@@ -2,8 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 
 #follow-button-disabled{
 
+} */
+
+#comment-card{
+  text-align: left;
+  padding-left: 18%
 }
 
 #main-div {
