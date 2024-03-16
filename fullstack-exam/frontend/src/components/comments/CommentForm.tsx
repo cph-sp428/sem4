@@ -26,8 +26,11 @@ function CommentForm({ postId }: CommentFormProps) {
     },
     refetchQueries: [
       { query: GET_ALL_POSTS },
-      { query: GET_POSTS_BY_USERNAME, variables: { username: possibleParam.username }},
-      { query: GET_RELEVANT_POSTS, variables: { username: username }},
+      {
+        query: GET_POSTS_BY_USERNAME,
+        variables: { username: possibleParam.username },
+      },
+      { query: GET_RELEVANT_POSTS, variables: { username: username } },
     ],
   });
 
@@ -36,17 +39,27 @@ function CommentForm({ postId }: CommentFormProps) {
   };
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) {
+    console.log(error);
+    alert("Error: " + error.message);
+    navigate("/home");
+  }
 
   return (
     <div id="comment-form">
-      <input id="comment-input"
-      className="border-3 border-gray-300 p-2 background-white"
+      <input
+        id="comment-input"
+        className="border-3 border-gray-300 p-2 background-white"
         type="text"
         placeholder="write a comment..."
         onChange={(e) => setCommentText(e.target.value)}
       />
-      <button className="border-3 border-gray-300 p-2 background-white" onClick={handleClick}>Comment</button>
+      <button
+        className="border-3 border-gray-300 p-2 background-white"
+        onClick={handleClick}
+      >
+        Comment
+      </button>
     </div>
   );
 }

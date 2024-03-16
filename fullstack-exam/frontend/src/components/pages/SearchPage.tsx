@@ -1,11 +1,12 @@
 import { useQuery } from "@apollo/client";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import PostCard from "../posts/PostCard";
 import { SEARCH_POSTS } from "../../graphql/queries/SEARCH_POSTS";
 import Post from "../../types/Post";
 
 function SearchPage() {
 
+    const navigate = useNavigate();
     const params = useParams();
     console.log(params);
 
@@ -14,7 +15,11 @@ function SearchPage() {
     });
 
     if (loading) return <p>Loading...</p>;
-    if (error) return <p>ERROR: {error.message}</p> ;
+    if (error) {
+        console.log(error);
+        alert("Error: " + error.message);
+        navigate("/home");
+    }
 
     const posts = data.searchPosts;
 

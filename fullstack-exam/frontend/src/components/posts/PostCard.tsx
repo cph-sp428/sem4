@@ -7,12 +7,14 @@ import { dressPost } from "../../utils/PostFactory";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { REPORT_POST } from "../../graphql/mutations/REPORT_POST";
+import { useNavigate } from "react-router";
 
 interface PostCardProps {
   post: Post;
 }
 
 function PostCard({ post }: PostCardProps) {
+  const navigate = useNavigate();
   const user = useAuth("user");
 
   const postToDisplay = dressPost(post);
@@ -49,6 +51,7 @@ function PostCard({ post }: PostCardProps) {
     if (error) {
       console.log(error.message);
       alert("Error reporting post");
+      navigate("/home");
     }
     alert("Post reported");
   };

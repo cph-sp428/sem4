@@ -19,7 +19,6 @@ function ProfileCard({ username }: ProfileCardProps) {
   const { loading, error, data } = useQuery(GET_USER_BY_USERNAME, {
     variables: { username: username },
   });
-  
 
   const [followProfile] = useMutation(FOLLOW_USER, {
     variables: { username: ownUsername, usernameToFollow: username },
@@ -30,12 +29,14 @@ function ProfileCard({ username }: ProfileCardProps) {
     ],
   });
 
-
   if (loading) return <p>Loading...</p>;
-  if (error) throw error;
+  if (error) {
+    console.log(error);
+    alert("Error: " + error.message);
+    navigate("/home");
+  }
 
   const user: User = data.userByUsername;
-
 
   const handleEdit = () => {
     navigate("/editProfile");
@@ -63,35 +64,44 @@ function ProfileCard({ username }: ProfileCardProps) {
       </Link>
       <p className="text-center text-sm">EMAIL: {user.email}</p>
       <p className="text-center text-sm">ROLES: {user.roles.toString()}</p>
-      {user.posts && (
-        <p className="text-center text-sm"># of POSTS: {user.posts.length}</p>
-      )}
-      {ownProfile && (
-        <>
-          <button
-            onClick={handleEdit}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Edit Profile
-          </button>
-          <button
-            onClick={handleNewPost}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            New Post
-          </button>
-        </>
-      )}
-      {!ownProfile && (
-        <>
-          <button
-            onClick={handleFollow}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            follow/unfollow
-          </button>
-        </>
-      )}
+      <p className="text-center text-sm"># of POSTS: {user.posts.length}</p>
+      <p className="text-center text-sm">
+        # of FOLLOWERS: {user.followers.length}
+      </p>
+      <p className="text-center text-sm">
+        # of FOLLOWING: {user.following.length}
+      </p>
+      <div
+        id="profile-buttons-container"
+        className="flex justify-around items-center"
+      >
+        {ownProfile && (
+          <>
+            <button
+              onClick={handleEdit}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Edit Profile
+            </button>
+            <button
+              onClick={handleNewPost}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              New Post
+            </button>
+          </>
+        )}
+        {!ownProfile && (
+          <>
+            <button
+              onClick={handleFollow}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              follow/unfollow
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 }

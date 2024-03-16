@@ -5,9 +5,11 @@ import Post from "../../types/Post";
 import { useEffect, useState } from "react";
 import { REMOVE_POST } from "../../graphql/mutations/REMOVE_POST";
 import { REMOVE_REPORT } from "../../graphql/mutations/REMOVE_REPORT";
+import { useNavigate } from "react-router";
 
 function AdminPage() {
   
+  const navigate = useNavigate();
   const admin = useAuth("admin");
 
   const { loading, error, data } = useQuery(GET_ALL_REPORTED_POSTS);
@@ -36,7 +38,8 @@ function AdminPage() {
   if (loading) return <p>Loading...</p>;
   if (error) {
     console.log(error);
-    return <p>Error</p>;
+    alert("Error: " + error.message);
+    navigate("/home");
   }
 
   const handleRemovePost = (id: string) => {
