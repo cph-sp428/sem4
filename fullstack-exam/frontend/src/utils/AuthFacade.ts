@@ -13,11 +13,11 @@ export const setToken = (token: string) => {
   cookies.set("token", token, {
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
   });
-  redirect("/");
+  // redirect("/home");
 };
 
 export const authenticate = (role: string) => {
-  const token = cookies.get("token");
+  const token : string = cookies.get("token");
   if (!token) {
     return {isValid: false, username: ""};
   }

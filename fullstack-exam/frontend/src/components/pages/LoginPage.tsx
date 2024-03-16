@@ -3,7 +3,6 @@ import { authenticate, setToken } from "../../utils/AuthFacade";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { LOGIN } from "../../graphql/queries/Login";
 import { useNavigate } from "react-router-dom";
-import { set } from "mongoose";
 
 function LoginPage() {
   const navigate = useNavigate();

@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 import User from "../types/User";
 import Post from "../types/Post";
 import ReportedModel from "../models/reportedModel";
+import { opendir } from "fs";
 
 export default {
   login: async (
@@ -86,7 +87,9 @@ export default {
   ) => {
     const user = await userModel
       .findOne({ username: args.username })
-      .populate("posts");
+      .populate("posts")
+      .populate("following")
+      .populate("followers");
     if (!user) {
       throw new Error("User not found");
     }
@@ -109,6 +112,22 @@ export default {
     const reportedPosts = await ReportedModel.find().populate("post");
     const posts = reportedPosts.map((reportedPost) => reportedPost.post);
     return posts;
+  },
+  isFollowingUser: async (
+    _parent: never,
+    args: { username: string; usernameToFollow: string },
+    _context: any
+  ) => {
+    const user = await userModel
+      .findOne({ username: args.username })
+      .populate("following");
+    const userToFollow = await userModel.findOne({
+      username: args.usernameToFollow,
+    });
+    if (!user || !userToFollow) {
+      throw new Error("User not found");
+    }
+    return user.following.some(id => id.toString() === userToFollow._id.toString());
   },
 };
 

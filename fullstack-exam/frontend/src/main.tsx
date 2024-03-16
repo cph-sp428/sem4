@@ -5,7 +5,6 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  useQuery,
   //gql,
 } from "@apollo/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -20,14 +19,12 @@ import RegisterPage from "./components/pages/RegisterPage";
 import CreatePostPage from "./components/pages/CreatePostPage";
 import SearchPage from "./components/pages/SearchPage";
 import AdminPage from "./components/pages/AdminPage";
-import Post from "./types/Post";
-import { GET_ALL_POSTS } from "./graphql/queries/GetAllPosts";
 
 /*
 
 TODO:                 WORKED:
 
-1. refetchQueries ???
+1. ------------------refetchQueries ???
 2. ------------------add backend populate methods 
 3. ------------------populate the database
 4. ------------------implement the like button
@@ -42,12 +39,14 @@ TODO:                 WORKED:
 12. -----------------removeLike functionality
 13. -----------------implement the admin page
 14. ------------------implement the editProfile page
+15. -----------------unfollow button
 
 5. ------------------massive bcrypt bug
 6. !!!!!! stateful components w/ useContext !!!!!! the big one 
+7. ---------!!!!!! implement scalable ui
 2. !!!!!! implement better authorization (missing backend)
 1. bug in logout - navbar
-3. fix the error page
+3. ------------------fix the error page
 4. ------------------fix the nav bar
 5. ------------------fix the login page
 7. fix unnecessary re-renders
@@ -56,10 +55,10 @@ TODO:                 WORKED:
 
 */
 
-const PostContext = React.createContext({
-  allPosts: [] as Array<Post>,
-  setAllPosts: (posts: Array<Post>) => {},
-});
+// const PostContext = React.createContext({
+//   allPosts: [] as Array<Post>,
+//   setAllPosts: (posts: Array<Post>) => {},
+// });
 
 const router = createBrowserRouter([
   {
@@ -79,7 +78,7 @@ const router = createBrowserRouter([
         element: <ExplorePage />,
       },
       {
-        path: "/user",
+        path: "/user/",
         element: <ProfilePage />,
         children: [
           {

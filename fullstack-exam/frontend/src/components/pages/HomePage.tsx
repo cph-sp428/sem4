@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import PostCardContainer from "../posts/PostCardContainer";
 import { GET_RELEVANT_POSTS } from "../../graphql/queries/GetRelevantPosts";
 import { useEffect, useState } from "react";
+import Post from "../../types/Post";
 
 function HomePage() {
   const username: string | void = useAuth("user");
@@ -11,13 +12,7 @@ function HomePage() {
     variables: { username: username },
   });
 
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    if (data) {
-      setPosts(data.relevantPostsByUsername);
-    }
-  },[]);
+  const posts = data ? data.getRelevantPosts : [];
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -26,7 +21,7 @@ function HomePage() {
     <div>
       <h1>Home Page</h1>
       <PostCardContainer
-        posts={data.relevantPostsByUsername}
+        posts={posts}
         errorMessage="No Relevant Posts... Try following more people"
       />
     </div>

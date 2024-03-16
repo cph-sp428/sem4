@@ -10,6 +10,13 @@ export const GET_USER_BY_USERNAME = gql`
       posts {
         id
       }
+      following {
+        id
+      }
+      followers {
+        id
+        username
+      }
     }
   }
 `;

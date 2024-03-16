@@ -62,7 +62,7 @@ function Navbar() {
               </li>
             </>
           )}
-          {username ? <li onClick={handleLogout}><Link to={""}> Logout </Link></li> : <></>}
+          {username ? <li onClick={handleLogout}><a>Logout</a></li> : <></>}
         </ul>
       {/* </div> */}
       <div id="content-div">

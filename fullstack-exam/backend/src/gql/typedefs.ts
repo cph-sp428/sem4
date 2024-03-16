@@ -8,6 +8,7 @@ export const typeDefs = `#graphql
         userByUsername(username: String!) : User
         searchPosts(searchCriteria: String!) : [Post]
         getAllReportedPosts: [Post]
+        isFollowingUser(username: String!, usernameToFollow: String!): Boolean
     }
 
     type Mutation {

@@ -18,8 +18,6 @@ function CommentCardContainer({ comments, postID }: CommentCardContainerProps) {
     );
   }
 
-
-
   return (
     <div id="comment-card-container">
       <ul>

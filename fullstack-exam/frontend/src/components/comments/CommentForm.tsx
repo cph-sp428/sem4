@@ -5,19 +5,20 @@ import { useMutation } from "@apollo/client";
 import useAuth from "../../hooks/useAuth";
 import { GET_POSTS_BY_USERNAME } from "../../graphql/queries/GetPostsByUsername";
 import { GET_RELEVANT_POSTS } from "../../graphql/queries/GetRelevantPosts";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 interface CommentFormProps {
   postId: string;
 }
 
 function CommentForm({ postId }: CommentFormProps) {
+  const possibleParam = useParams();
   const navigate = useNavigate();
   const [commentText, setCommentText] = useState("");
   const username = useAuth("user");
   // console.log(username);
 
-  const [addComment, { loading, error }] = useMutation(POST_COMMENT, {
+  const [addCommentMutation, { loading, error }] = useMutation(POST_COMMENT, {
     variables: {
       username: username,
       text: commentText,
@@ -25,13 +26,13 @@ function CommentForm({ postId }: CommentFormProps) {
     },
     refetchQueries: [
       { query: GET_ALL_POSTS },
-      { query: GET_POSTS_BY_USERNAME },
-      { query: GET_RELEVANT_POSTS },
+      { query: GET_POSTS_BY_USERNAME, variables: { username: possibleParam.username }},
+      { query: GET_RELEVANT_POSTS, variables: { username: username }},
     ],
   });
 
   const handleClick = () => {
-    addComment();
+    addCommentMutation();
   };
 
   if (loading) return <p>Loading...</p>;

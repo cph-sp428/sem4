@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import useAuth from "../../hooks/useAuth";
 import Post from "../../types/Post";
 import CommentCardContainer from "../comments/CommentCardContainer";
@@ -54,13 +54,16 @@ function PostCard({ post }: PostCardProps) {
   };
 
   return (
-    <div className="bg-blue rounded-lg overflow-hidden shadow-2xl shadow-gray-900" id="post-card-container">
+    <div
+      className="bg-blue rounded-lg overflow-hidden shadow-2xl shadow-gray-900"
+      id="post-card-container"
+    >
       <img className=" size-full mx-auto" src={post.picUrl} />
-      <Link to={"/user/" + post.user.username}>
-        <h2 className="text-center text-xl ">
-          {post.user.username} - {post.description}
-        </h2>
-      </Link>
+
+      <h2 className="text-center text-xl ">
+        <Link to={"/user/" + post.user.username}>{post.user.username}</Link> -{" "}
+        {post.description}
+      </h2>
       <div
         id="post-actions-container"
         className=" flex justify-around items-center"
@@ -76,6 +79,7 @@ function PostCard({ post }: PostCardProps) {
         </div>
         <button
           onClick={handleReport}
+          id={true ? "report-button" : "report-button-div"}
           className=" bg-pink-100 text-black p-2 m-2 hover:bg-pink-300 hover:text-white border-3 border-pink-300 rounded-lg"
         >
           report

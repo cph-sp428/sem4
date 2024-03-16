@@ -84,14 +84,24 @@ export default {
     return post;
   },
   followUser: async (_parent: never, args: { username: string; usernameToFollow: string }) => {
-    const user = await userModel.findOne({ username: args.username });
+
+    const user = await userModel.findOne({ username: args.username }).populate("following");
     const userToFollow = await userModel.findOne({ username: args.usernameToFollow });
 
     if(!user || !userToFollow) {
       throw new Error("User not found");
     }
+
+    if(user.following.includes(userToFollow._id)){
+      throw new Error("User already followed");
+    }
+
     user.following.push(userToFollow._id);
+    userToFollow.followers.push(user._id);
+
     user.save();
+    userToFollow.save();
+
     return userToFollow;
   },
   updateUser: async (_parent: never, args: { userId: string, username: string, password: string, email: string}) => {

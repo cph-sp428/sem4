@@ -7,6 +7,7 @@ interface PostCardContainerProps {
 }
 
 function PostCardContainer({ posts, errorMessage }: PostCardContainerProps) {
+
   if (!posts || posts.length === 0) {
     return <h3>{errorMessage}</h3>;
   }
@@ -16,7 +17,7 @@ function PostCardContainer({ posts, errorMessage }: PostCardContainerProps) {
       <ul>
         {posts.map((post: Post) => (
           <li key={post.id ? post.id : Math.random()}>
-            <PostCard post={post} />
+            <PostCard post={post}/>
           </li>
         ))}
       </ul>

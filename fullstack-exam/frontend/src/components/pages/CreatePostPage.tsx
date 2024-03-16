@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { CREATE_POST } from "../../graphql/mutations/CREATE_POST";
 import useAuth from "../../hooks/useAuth";
+import { GET_POSTS_BY_USERNAME } from "../../graphql/queries/GetPostsByUsername";
 
 function CreatePostPage() {
   const navigate = useNavigate();
@@ -17,6 +18,9 @@ function CreatePostPage() {
       picUrl: postInfo.picUrl,
       description: postInfo.description,
     },
+    refetchQueries: [
+      { query: GET_POSTS_BY_USERNAME, variables: { username: username } },
+    ],
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
