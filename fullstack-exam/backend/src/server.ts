@@ -21,9 +21,13 @@ const resolvers = {
   Mutation: mutations,
 };
 
-const jwtMiddleware = (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  if (req.body.operationName === 'Login' || req.path === 'Register') {
-    console.log('allowing anonymous') //TODO: Fjern denne
+const jwtMiddleware = (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  if (req.body.operationName === "Login" || req.path === "Register") {
+    console.log("allowing anonymous"); //TODO: Fjern denne
     return next();
   }
   const token = req.headers.authorization;

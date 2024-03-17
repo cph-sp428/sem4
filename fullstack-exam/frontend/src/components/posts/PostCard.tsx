@@ -64,7 +64,7 @@ function PostCard({ post }: PostCardProps) {
 
   return (
     <div
-      className="bg-blue rounded-lg overflow-hidden shadow-2xl shadow-gray-900"
+      className="bg-blue rounded-lg overflow-hidden shadow-3xl shadow-gray-900"
       id="post-card-container"
     >
       <img className=" size-full mx-auto" src={post.picUrl} />

@@ -5,6 +5,7 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
+  createHttpLink,
   //gql,
 } from "@apollo/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -65,6 +66,27 @@ TODO:                 WORKED:
 //   setAllPosts: (posts: Array<Post>) => {},
 // });
 
+// const httpLink = createHttpLink({
+//   uri: '/graphql',
+// });
+
+// const authLink = setContext((_, { headers }) => {
+//   // get the authentication token from local storage if it exists
+//   const token = localStorage.getItem('token');
+//   // return the headers to the context so httpLink can read them
+//   return {
+//     headers: {
+//       ...headers,
+//       authorization: token ? `Bearer ${token}` : "",
+//     }
+//   }
+// });
+
+// const client = new ApolloClient({
+//   link: authLink.concat(httpLink),
+//   cache: new InMemoryCache()
+// });
+
 const router = createBrowserRouter([
   {
     path: "",
@@ -122,34 +144,10 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-/*
-const httpLink = createHttpLink({
-  uri: '/graphql',
-});
-
-const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  const token = localStorage.getItem('token');
-  // return the headers to the context so httpLink can read them
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : "",
-    }
-  }
-});
-
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
-});
-*/
-
-
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-        <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </ApolloProvider>
   </React.StrictMode>
 );
