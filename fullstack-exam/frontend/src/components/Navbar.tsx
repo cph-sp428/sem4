@@ -28,16 +28,16 @@ function Navbar() {
             </li>
           ) : (
             <></>
-          )}
+            )}
           {username ? (
             <>
               <li>
                 {/* <div id="search-bar-container">
                   <input
-                    id="search-bar"
-                    type="text"
-                    value={searchCriteria}
-                    onChange={(e) => setSearchCriteria(e.target.value)}
+                  id="search-bar"
+                  type="text"
+                  value={searchCriteria}
+                  onChange={(e) => setSearchCriteria(e.target.value)}
                   />
                   <Link to={"/search/" + searchCriteria}>Search</Link>
                 </div> */}

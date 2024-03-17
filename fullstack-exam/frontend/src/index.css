@@ -7,21 +7,6 @@
 
 } */
 
-#profile-buttons-container{
-  display: grid;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2%;
-  margin-bottom: -2%;
-
-}
-
-#comment-card{
-  text-align: left;
-  padding-left: 18%
-}
-
 #main-div {
   padding-top: 5%;
   margin-top: auto;
@@ -37,52 +22,89 @@
   min-width: 60%;
 }
 
-#search-bar{
-  max-width: 50%;
-  box-sizing: border-box;
-  background-color: #0cb39f7c;
-
+#navbar {
+  position: relative;
+  display: inline;
+  list-style-type: none;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  border: 3px solid #444242;
+  margin-bottom: 15px;
+  width: 60%;
 }
 
-#profile-card-container{
-  padding: auto;
-  padding-top: 5%;
-  padding-bottom: 5%;
-  margin-bottom: 5%;
-  margin-top: 15%;
-  background-color: cadetblue;
+@media (max-width: 582px) {
+  #navbar {
+    margin-bottom: 15px;
+    width: 100%;
+    padding: 0 15px;
+  }
 }
 
-#post-card-container{
-  padding: auto;
-  margin-bottom: 5%;
-
-  background-color: cadetblue;
-}
-
-#explore-page-container{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-
+@media (max-width: 400px) {
+  #comment-form {
+    margin-bottom: 3%;
+  }
 }
 
 #content-div {
-  
   background: #dac3c3;
-  padding-top: 5%;
   padding-bottom: 2%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
 }
 
-#navbar-container{
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#profile-buttons-container {
+  display: grid;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
+  margin-bottom: -2%;
+  gap: 10px;
+}
+
+#comment-card {
+  text-align: left;
+  padding-left: 18%;
+}
+
+#search-bar {
+  max-width: 50%;
+  box-sizing: border-box;
+  background-color: #0cb39f7c;
+}
+
+#profile-card-container {
+  width: 100%;
+  padding: auto;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  margin-bottom: 5%;
+  /* margin-top: 15%; */
+  background-color: cadetblue;
+}
+
+#post-card-container {
+  width: 100%;
+  padding: auto;
+  margin-bottom: 5%;
+
+  background-color: cadetblue;
+}
+
+
+#navbar-container {
   min-height: 15%;
   min-width: 40%;
   display: flex;
@@ -94,13 +116,14 @@
   /* background-color: #444242; */
   color: white;
 }
-
-#navbar{
+/* 
+#navbar {
   min-width: auto;
   min-height: auto;
-}
+} */
 
-#register-page{
+
+#register-page {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -108,16 +131,15 @@
   height: 100%;
 }
 
-#comment-input{
+#comment-input {
   max-width: 55%;
 }
 
-#login-page-container{
-margin-top: 15%;
+#login-page-container {
+  margin-top: 15%;
 }
 
-#post-actions-container{
-
+#post-actions-container {
   margin-left: auto;
   margin-right: auto;
   width: 25%;
@@ -126,44 +148,33 @@ margin-top: 15%;
   display: flex;
 }
 
-h1{
-  margin: 10px;
-  padding: 10px;
-  font-size: 2em;
-  font-weight: 600;
-
-}
-
-input{
+input {
   margin: 10px;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #000;
   width: 75%;
-
 }
- form{
+form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
-
 }
-
-#content-div{
+/* 
+#content-div {
   margin-top: 5%;
   padding-top: 2%;
   padding-bottom: 2%;
-}
-
-#search-bar{
+} */
+/* 
+#search-bar {
   max-width: 50%;
   box-sizing: border-box;
-}
+} */
 
-
-#navbar {
+/* #navbar {
   position: absolute;
   display: inline;
   list-style-type: none;
@@ -172,7 +183,7 @@ input{
   padding-left: 2.5%;
   padding-right: 5%;
   border: 3px solid #444242;
-}
+} */
 
 #navbar li {
   display: inline;
@@ -200,11 +211,11 @@ a {
   text-decoration: inherit;
 }
 a:hover {
-  color:black;
+  color: black;
 }
 
 #comment-form button {
-  background-color:  grey;
+  background-color: grey;
   height: 5%;
 }
 
@@ -218,10 +229,10 @@ body {
 }
 
 h1 {
-  padding-top: 5%;
-  font-size: 3.2em;
+  padding: 5% 0;
+  font-size: 32px;
+  font-weight: 600;
   line-height: 1.1;
-  font-size: auto;
 }
 
 button {

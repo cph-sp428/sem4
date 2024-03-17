@@ -17,7 +17,7 @@ function ExplorePage() {
   }
 
   return (
-    <div id="explore-page-container">
+    <div id="container">
       <h1>EXPLORE</h1>
       <PostCardContainer
         posts={data.getAllPosts}

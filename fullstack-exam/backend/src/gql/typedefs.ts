@@ -21,6 +21,7 @@ export const typeDefs = `#graphql
         reportPost(postId: String!): Post
         removePost(postId: String!): Post
         removeReport(postId: String!): Post
+        removeAllFollowersAndFollowing(someString: String!) : Boolean
     }
 
     type Token {

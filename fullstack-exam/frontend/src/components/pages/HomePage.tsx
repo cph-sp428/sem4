@@ -12,7 +12,7 @@ function HomePage() {
     variables: { username: username },
   });
 
-  const posts = data ? data.getRelevantPosts : [];
+  const posts = data ? data.relevantPostsByUsername : [];
 
   if (loading) return <p>Loading...</p>;
   if (error) {
@@ -22,8 +22,8 @@ function HomePage() {
   }
 
   return (
-    <div>
-      <h1>Home Page</h1>
+    <div id="container">
+      <h1>HOMEPAGE</h1>
       <PostCardContainer
         posts={posts}
         errorMessage="No Relevant Posts... Try following more people"

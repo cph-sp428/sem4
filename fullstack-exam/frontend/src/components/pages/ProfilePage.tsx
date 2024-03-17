@@ -27,7 +27,9 @@ function ProfilePage() {
   }
 
   return (
-    <div>
+    <div id="container">
+      <h1> PROFILE: {currentUsername!}</h1>
+
       <ProfileCard username={currentUsername} />
 
       <PostCardContainer

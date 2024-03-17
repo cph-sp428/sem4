@@ -2,29 +2,31 @@ import { useMutation, useQuery } from "@apollo/client";
 import useAuth from "../../hooks/useAuth";
 import { GET_ALL_REPORTED_POSTS } from "../../graphql/queries/GET_ALL_REPORTED_POSTS";
 import Post from "../../types/Post";
-import { useEffect, useState } from "react";
 import { REMOVE_POST } from "../../graphql/mutations/REMOVE_POST";
 import { REMOVE_REPORT } from "../../graphql/mutations/REMOVE_REPORT";
 import { useNavigate } from "react-router";
 
 function AdminPage() {
-  
   const navigate = useNavigate();
   const admin = useAuth("admin");
 
   const { loading, error, data } = useQuery(GET_ALL_REPORTED_POSTS);
 
-  const [removePost] = useMutation(REMOVE_POST);
+  const [removePost] = useMutation(REMOVE_POST, {
+    refetchQueries: [
+      {
+        query: GET_ALL_REPORTED_POSTS,
+      },
+    ],
+  });
 
-  const [removeReport] = useMutation(REMOVE_REPORT);
-
-  const [reportedPosts, setReportedPosts] = useState<Post[]>([]);
-
-  useEffect(() => {
-    if (data) {
-      setReportedPosts(data.getAllReportedPosts);
-    }
-  }, [loading]);
+  const [removeReport] = useMutation(REMOVE_REPORT, {
+    refetchQueries: [
+      {
+        query: GET_ALL_REPORTED_POSTS,
+      },
+    ],
+  });
 
   if (!admin) {
     return (
@@ -42,25 +44,27 @@ function AdminPage() {
     navigate("/home");
   }
 
+  const reportedPosts: Post[] = data.getAllReportedPosts;
+
   const handleRemovePost = (id: string) => {
     removePost({
       variables: { postId: id },
     });
-    setReportedPosts(reportedPosts.filter((post) => post.id !== id));
   };
 
   const handleRemoveReport = (id: string) => {
     removeReport({
       variables: { postId: id },
     });
-    setReportedPosts(reportedPosts.filter((post) => post.id !== id));
   };
 
   return (
     <div id="admin-page-container">
       <h1 className=" text-center">Admin Page</h1>
-      <div>
-        {reportedPosts.map((post: Post) => (
+      {reportedPosts.length === 0 ? (
+        <p>No reported posts</p>
+      ) : (
+        reportedPosts.map((post: Post) => (
           <div key={post.id}>
             <img src={post.picUrl} alt="post" />
             <p>{post.description}</p>
@@ -78,8 +82,8 @@ function AdminPage() {
               Remove Report
             </button>
           </div>
-        ))}
-      </div>
+        ))
+      )}
     </div>
   );
 }

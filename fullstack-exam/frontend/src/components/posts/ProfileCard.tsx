@@ -26,6 +26,7 @@ function ProfileCard({ username }: ProfileCardProps) {
       { query: GET_ALL_POSTS },
       { query: GET_RELEVANT_POSTS, variables: { username: ownUsername } },
       { query: GET_USER_BY_USERNAME, variables: { username: username } },
+      { query: GET_USER_BY_USERNAME, variables: { username: ownUsername } },
     ],
   });
 
@@ -62,7 +63,7 @@ function ProfileCard({ username }: ProfileCardProps) {
       <Link to={"/user/" + user.username}>
         <h1 className="text-center text-3xl">{user.username}</h1>
       </Link>
-      <p className="text-center text-sm">EMAIL: {user.email}</p>
+      {/* <p className="text-center text-sm">EMAIL: {user.email}</p> */}
       <p className="text-center text-sm">ROLES: {user.roles.toString()}</p>
       <p className="text-center text-sm"># of POSTS: {user.posts.length}</p>
       <p className="text-center text-sm">

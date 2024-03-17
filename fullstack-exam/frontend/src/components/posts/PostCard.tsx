@@ -8,6 +8,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { REPORT_POST } from "../../graphql/mutations/REPORT_POST";
 import { useNavigate } from "react-router";
+import { GET_ALL_REPORTED_POSTS } from "../../graphql/queries/GET_ALL_REPORTED_POSTS";
 
 interface PostCardProps {
   post: Post;
@@ -44,6 +45,11 @@ function PostCard({ post }: PostCardProps) {
     variables: {
       postId: post.id,
     },
+    refetchQueries: [
+      {
+        query: GET_ALL_REPORTED_POSTS,
+      }
+    ],
   });
 
   const handleReport = () => {
@@ -71,20 +77,18 @@ function PostCard({ post }: PostCardProps) {
         id="post-actions-container"
         className=" flex justify-around items-center"
       >
-        <div id="likes-container" className="flex items-center">
+        <div id="likes-container" className="flex items-center gap-4">
           <p>{likes}</p>
           <img
             src="https://www.svgrepo.com/show/5414/like.svg"
-            width={35}
             onClick={handleLike}
-            className="cursor-pointer hover:scale-110"
+            className="cursor-pointer hover:scale-110 w-auto max-w-8"
           />
         </div>
         <button
           onClick={handleReport}
           id={true ? "report-button" : "report-button-div"}
-          className=" bg-pink-100 text-black p-2 m-2 hover:bg-pink-300 hover:text-white border-3 border-pink-300 rounded-lg"
-        >
+          className=" bg-pink-100 text-black p-2 m-2 hover:bg-pink-300 hover:text-white border-3 border-pink-300 rounded-lg">
           report
         </button>
       </div>

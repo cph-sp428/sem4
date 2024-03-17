@@ -21,6 +21,18 @@ const resolvers = {
   Mutation: mutations,
 };
 
+const jwtMiddleware = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  if (req.body.operationName === 'Login' || req.path === 'Register') {
+    console.log('allowing anonymous') //TODO: Fjern denne
+    return next();
+  }
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+  next();
+};
+
 const app = express();
 const httpServer = http.createServer(app);
 const server = new ApolloServer<MyContext>({
@@ -34,10 +46,12 @@ app.use(
   "/graphql",
   cors<cors.CorsRequest>(),
   express.json(),
+  //jwtMiddleware,
   expressMiddleware(server, {
-    context: async ({ req }) => ({ token: req.headers.authorization}),
+    context: async ({ req }) => ({ token: req.headers.authorization }),
   })
 );
+
 await new Promise<void>((resolve) =>
   httpServer.listen({ port: 4000 }, resolve)
 );

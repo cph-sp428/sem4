@@ -13,7 +13,7 @@ function PostCardContainer({ posts, errorMessage }: PostCardContainerProps) {
   }
 
   return (
-    <div>
+    <div id="container">
       <ul>
         {posts.map((post: Post) => (
           <li key={post.id ? post.id : Math.random()}>

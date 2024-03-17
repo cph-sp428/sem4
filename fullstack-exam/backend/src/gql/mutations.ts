@@ -62,19 +62,23 @@ export default {
     });
     return comment;
   },
-  likePost: async (_parent: never, args: { postId: string, username: string }) => {
-
+  likePost: async (
+    _parent: never,
+    args: { postId: string; username: string }
+  ) => {
     const user = await userModel.findOne({ username: args.username });
     const post = await postModel.findOne({ _id: args.postId });
-    
+
     if (!post) {
       throw new Error("Post not found");
-    } else if (!user){
+    } else if (!user) {
       throw new Error("User not found");
     }
     // removes like if user already liked the post
-    if(post.likes.includes(user._id)) {
-      post.likes = post.likes.filter((like) => like.toString() !== user._id.toString());
+    if (post.likes.includes(user._id)) {
+      post.likes = post.likes.filter(
+        (like) => like.toString() !== user._id.toString()
+      );
       post.save();
       return post;
     }
@@ -83,24 +87,21 @@ export default {
     post.save();
     return post;
   },
-  followUser: async (_parent: never, args: { username: string; usernameToFollow: string }) => {
+  followUser: async (
+    _parent: never,
+    args: { username: string; usernameToFollow: string }
+  ) => {
+    const user = await userModel
+      .findOne({ username: args.username })
+      .populate("following");
+    const userToFollow = await userModel
+      .findOne({ username: args.usernameToFollow })
+      .populate("followers");
 
-    const user = await userModel.findOne({ username: args.username }).populate("following");
-    const userToFollow = await userModel.findOne({ username: args.usernameToFollow });
-
-    if(!user || !userToFollow) {
-      throw new Error("User not found");
+    if (!user || !userToFollow) {
+      throw new Error("Users not valid");
     }
-
-    // if user is already following the userToFollow, remove the follow
-    if(user.following.includes(userToFollow._id)){
-      user.following.filter((id) => id.toString() !== userToFollow._id.toString());
-      userToFollow.followers.filter((id) => id.toString() !== user._id.toString());
-      user.save();
-      userToFollow.save();
-      return userToFollow;
-    }
-
+    
     user.following.push(userToFollow._id);
     userToFollow.followers.push(user._id);
     user.save();
@@ -108,21 +109,26 @@ export default {
 
     return userToFollow;
   },
-  updateUser: async (_parent: never, args: { userId: string, username: string, password: string, email: string}) => {
-    
-    const isUsernameUnique = await userModel.findOne({ username: args.username }) !== null;
+  // TODO: rethink the logic of this function
+  updateUser: async (
+    _parent: never,
+    args: { userId: string; username: string; password: string; email: string }
+  ) => {
+    const isUsernameUnique =
+      (await userModel.findOne({ username: args.username })) !== null;
 
-    if(!isUsernameUnique){
+    if (!isUsernameUnique) {
       throw new Error("Username already exists");
     }
 
-    const isEmailUnique = await userModel.findOne({ email: args.email }) !== null;
-    if(!isEmailUnique){
+    const isEmailUnique =
+      (await userModel.findOne({ email: args.email })) !== null;
+    if (!isEmailUnique) {
       throw new Error("Email already exists");
     }
-    
+
     const user = await userModel.findById(args.userId);
-    if(!user){
+    if (!user) {
       throw new Error("User not found");
     }
     user.username = args.username;
@@ -133,24 +139,26 @@ export default {
   },
   reportPost: async (_parent: never, args: { postId: string }) => {
     const post = await ReportedModel.findOne({ post: args.postId });
-    if(post){
+    if (post) {
       throw new Error("Post already reported");
     }
     const reportedPost = await ReportedModel.create({ post: args.postId });
     return reportedPost;
-
   },
+  // TODO: remove comments and likes
   removePost: async (_parent: never, args: { postId: string }) => {
     const post = await postModel.findByIdAndDelete(args.postId);
-    if(!post){
+    if (!post) {
       throw new Error("Post not found");
     }
 
     const report = await ReportedModel.findOneAndDelete({ post: post._id });
 
     const user = await userModel.findById(post.user);
-    if(user){
-      user.posts = user.posts.filter((postId) => postId.toString() !== post._id.toString());
+    if (user) {
+      user.posts = user.posts.filter(
+        (postId) => postId.toString() !== post._id.toString()
+      );
       user.save();
     }
 
@@ -162,10 +170,20 @@ export default {
     return post;
   },
   removeReport: async (_parent: never, args: { postId: string }) => {
-    const reportedPost = await ReportedModel.findOneAndDelete({ post: args.postId });
-    if(!reportedPost){
+    const reportedPost = await ReportedModel.findOneAndDelete({
+      post: args.postId,
+    });
+    if (!reportedPost) {
       throw new Error("Reported post not found");
     }
     return reportedPost;
-  }
+  },
+  removeAllFollowersAndFollowing: async (
+    _parent: never,
+    args: { someString: string }
+  ) => {
+    console.log(args.someString);
+    await userModel.updateMany({}, { $set: { following: [], followers: [] } });
+    return true;
+  },
 };

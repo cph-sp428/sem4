@@ -41,9 +41,10 @@ TODO:                 WORKED:
 14. ------------------implement the editProfile page
 15. -----------------unfollow button
 16. remove post functionality
-17. showing the number of followers
-18. showing the number of following
+17. -----------------showing the number of followers
+18. -----------------showing the number of following
 19. admin having clean up functionality - db
+20. follow-unfollow bug
 
 5. ------------------massive bcrypt bug
 6. ---------!!!!!! stateful components w/ useContext? (used refetchQueries)
@@ -120,6 +121,29 @@ const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
   cache: new InMemoryCache(),
 });
+
+/*
+const httpLink = createHttpLink({
+  uri: '/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem('token');
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    }
+  }
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
+});
+*/
 
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

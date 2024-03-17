@@ -50,13 +50,16 @@ export default {
       throw new Error("User not found");
     }
     const following = user.following;
+    // console.log(following);
     const posts = await postModel
       .find({ user: { $in: following } })
       .populate("user")
       .populate("comments")
       .populate("likes")
       .sort({ createdAt: -1 });
+    // console.log(posts);
     return posts;
+
   },
   postsByUsername: async (
     _parent: never,
@@ -69,7 +72,7 @@ export default {
     }
 
     const posts = await postModel
-      .find({ user: user._id })
+      .find( { user: user._id })
       .populate("user")
       .populate("comments")
       .populate("likes");
