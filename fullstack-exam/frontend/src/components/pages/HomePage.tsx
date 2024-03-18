@@ -1,7 +1,7 @@
 import useAuth from "../../hooks/useAuth";
 import { useQuery } from "@apollo/client";
 import PostCardContainer from "../posts/PostCardContainer";
-import { GET_RELEVANT_POSTS } from "../../graphql/queries/GetRelevantPosts";
+import { GET_RELEVANT_POSTS } from "../../graphql/queries/GET_RELEVANT_POSTS";
 import { useNavigate } from "react-router-dom";
 
 function HomePage() {

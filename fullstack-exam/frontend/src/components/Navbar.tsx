@@ -7,10 +7,11 @@ function Navbar() {
   const redirect = useNavigate();
   let username = useAuth("user");
   const { isValid } = authenticate("admin");
-  const [searchCriteria, setSearchCriteria] = useState("");
 
   useEffect(() => {
-    if (!username) redirect("/login");
+    if(!username){
+      handleLogout();
+    }
   }, []);
 
   const handleLogout = () => {
@@ -31,17 +32,6 @@ function Navbar() {
             )}
           {username ? (
             <>
-              <li>
-                {/* <div id="search-bar-container">
-                  <input
-                  id="search-bar"
-                  type="text"
-                  value={searchCriteria}
-                  onChange={(e) => setSearchCriteria(e.target.value)}
-                  />
-                  <Link to={"/search/" + searchCriteria}>Search</Link>
-                </div> */}
-              </li>
               <li>
                 <Link to="/home">Home</Link>
               </li>

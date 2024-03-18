@@ -25,7 +25,7 @@ function SearchPage() {
 
     return ( 
         <div id="search-page-container">
-            <h2 className=" text-center">Search Results For: {params.searchCriteria}</h2>
+            <h1>Search Results: '{params.searchCriteria}'</h1>
             {posts.length === 0 && <p>No posts found...</p>}
             {posts.map((post : Post) => {
                 return (

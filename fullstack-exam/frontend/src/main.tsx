@@ -31,7 +31,7 @@ TODO:                 WORKED:
 4. ------------------implement the like button
 5. ------------------implement the numberOfLikes literals
 6. ------------------implement the numberOfPosts literals
-6. implement grid layout vs column layout
+6. ..................implement grid layout vs column layout
 7. ------------------implement the search bar
 8. ------------------implement the follow button
 9. ------------------implement the register page
@@ -41,17 +41,19 @@ TODO:                 WORKED:
 13. -----------------implement the admin page
 14. ------------------implement the editProfile page
 15. -----------------unfollow button
-16. remove post functionality
+16. -----------------remove post functionality
 17. -----------------showing the number of followers
 18. -----------------showing the number of following
-19. admin having clean up functionality - db
-20. follow-unfollow bug
+19. -----------------admin having clean up functionality - access through gql playground
+20. -----------------follow-unfollow bug
+21. -----------------re-implement search bar (in explore page?)
+22. .................comment bug in home page
 
 5. ------------------massive bcrypt bug
-6. ---------!!!!!! stateful components w/ useContext? (used refetchQueries)
-7. ---------!!!!!! implement scalable ui
-2. !!!!!! implement better authorization (missing backend)
-1. bug in logout - navbar ????
+6. ------------------!!!!!! stateful components w/ useContext? (used refetchQueries)
+7. ------------------!!!!!! implement scalable ui (re bug)
+2. !!!!!! implement better authorization
+1. ------------------bug in logout - navbar ????
 3. ------------------fix the error page
 4. ------------------fix the nav bar
 5. ------------------fix the login page

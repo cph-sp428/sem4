@@ -27,7 +27,7 @@ const jwtMiddleware = (
   next: express.NextFunction
 ) => {
   if (req.body.operationName === "Login" || req.path === "Register") {
-    console.log("allowing anonymous"); //TODO: Fjern denne
+    console.log("allowing anonymous"); 
     return next();
   }
   const token = req.headers.authorization;

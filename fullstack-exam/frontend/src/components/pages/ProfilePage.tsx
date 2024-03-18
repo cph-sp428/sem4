@@ -3,13 +3,15 @@ import { useQuery } from "@apollo/client";
 import { useNavigate, useParams } from "react-router-dom";
 import ProfileCard from "../posts/ProfileCard";
 import PostCardContainer from "../posts/PostCardContainer";
-import { GET_POSTS_BY_USERNAME } from "../../graphql/queries/GetPostsByUsername";
+import { GET_POSTS_BY_USERNAME } from "../../graphql/queries/GET_POSTS_BY_USERNAME";
+import PostCardGridContainer from "../posts/PostCardGridContainer";
+import { useState } from "react";
 
 function ProfilePage() {
   const navigate = useNavigate();
   let currentUsername = useAuth("user");
   const { username } = useParams();
-  // const navigate = useNavigate();
+  const [gridMode, setGridMode] = useState(false);
 
   if (username || !currentUsername) {
     currentUsername = username;
@@ -32,10 +34,16 @@ function ProfilePage() {
 
       <ProfileCard username={currentUsername} />
 
-      <PostCardContainer
-        posts={data.postsByUsername}
-        errorMessage="No Available Posts..."
-      />
+      <button id="gridmode-button" onClick={() => (setGridMode(!gridMode))}>Toggle Grid Mode</button>
+
+      {gridMode ? (
+        <PostCardGridContainer posts={data.postsByUsername} />
+      ) : (
+        <PostCardContainer
+          posts={data.postsByUsername}
+          errorMessage="No Available Posts..."
+        />
+      )}
     </div>
   );
 }

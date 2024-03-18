@@ -1,11 +1,11 @@
 import User from "../../types/User";
 import { useQuery, useMutation } from "@apollo/client";
-import { GET_USER_BY_USERNAME } from "../../graphql/queries/UserByUsername";
+import { GET_USER_BY_USERNAME } from "../../graphql/queries/GET_USER_BY_USERNAME";
 import useAuth from "../../hooks/useAuth";
 import { FOLLOW_USER } from "../../graphql/mutations/FOLLOW_USER";
 import { Link, useNavigate } from "react-router-dom";
-import { GET_ALL_POSTS } from "../../graphql/queries/GetAllPosts";
-import { GET_RELEVANT_POSTS } from "../../graphql/queries/GetRelevantPosts";
+import { GET_ALL_POSTS } from "../../graphql/queries/GET_ALL_POSTS";
+import { GET_RELEVANT_POSTS } from "../../graphql/queries/GET_RELEVANT_POSTS";
 
 interface ProfileCardProps {
   username: string | void;
@@ -39,17 +39,9 @@ function ProfileCard({ username }: ProfileCardProps) {
 
   const user: User = data.userByUsername;
 
-  const handleEdit = () => {
-    navigate("/editProfile");
-  };
-
-  const handleFollow = () => {
-    followProfile();
-  };
-
-  const handleNewPost = () => {
-    navigate("/createPost");
-  };
+  const isFollowing = user.followers.some(
+    (follower) => follower.username === ownUsername
+  );
 
   return (
     <div
@@ -79,13 +71,13 @@ function ProfileCard({ username }: ProfileCardProps) {
         {ownProfile && (
           <>
             <button
-              onClick={handleEdit}
+              onClick={() => navigate("/editProfile")}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
               Edit Profile
             </button>
             <button
-              onClick={handleNewPost}
+              onClick={() => navigate("/newPost")}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
               New Post
@@ -95,10 +87,10 @@ function ProfileCard({ username }: ProfileCardProps) {
         {!ownProfile && (
           <>
             <button
-              onClick={handleFollow}
+              onClick={() => followProfile()}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
-              follow/unfollow
+              {isFollowing ? "Unfollow" : "Follow"}
             </button>
           </>
         )}

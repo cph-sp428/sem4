@@ -1,6 +1,6 @@
 import useAuth from "../../hooks/useAuth";
 import { useQuery } from "@apollo/client";
-import { GET_USER_BY_USERNAME } from "../../graphql/queries/UserByUsername";
+import { GET_USER_BY_USERNAME } from "../../graphql/queries/GET_USER_BY_USERNAME";
 import { useState } from "react";
 import User from "../../types/User";
 import { useMutation } from "@apollo/client";

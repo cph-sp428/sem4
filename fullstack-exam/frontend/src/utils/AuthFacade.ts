@@ -1,6 +1,5 @@
 import Cookies from "universal-cookie";
 import { jwtDecode } from "jwt-decode";
-import { redirect } from "react-router-dom";
 
 const cookies = new Cookies();
 

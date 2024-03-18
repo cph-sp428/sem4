@@ -7,8 +7,13 @@ import { dressPost } from "../../utils/PostFactory";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { REPORT_POST } from "../../graphql/mutations/REPORT_POST";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { GET_ALL_REPORTED_POSTS } from "../../graphql/queries/GET_ALL_REPORTED_POSTS";
+import { REMOVE_POST } from "../../graphql/mutations/REMOVE_POST";
+import { GET_ALL_POSTS } from "../../graphql/queries/GET_ALL_POSTS";
+import { GET_RELEVANT_POSTS } from "../../graphql/queries/GET_RELEVANT_POSTS";
+import { GET_USER_BY_USERNAME } from "../../graphql/queries/GET_USER_BY_USERNAME";
+import { GET_POSTS_BY_USERNAME } from "../../graphql/queries/GET_POSTS_BY_USERNAME";
 
 interface PostCardProps {
   post: Post;
@@ -17,6 +22,8 @@ interface PostCardProps {
 function PostCard({ post }: PostCardProps) {
   const navigate = useNavigate();
   const user = useAuth("user");
+
+  const isOwnPost = post.user.username === user;
 
   const postToDisplay = dressPost(post);
   const [likes, setLikes] = useState(postToDisplay.numberOfLikes);
@@ -48,9 +55,19 @@ function PostCard({ post }: PostCardProps) {
     refetchQueries: [
       {
         query: GET_ALL_REPORTED_POSTS,
-      }
+      },
     ],
   });
+
+  const [removePost] = useMutation(REMOVE_POST, {
+    variables : {
+      postId: post.id
+    },
+    refetchQueries: [
+      { query: GET_ALL_POSTS },
+      { query: GET_POSTS_BY_USERNAME, variables: { username: user } },
+    ],
+  })
 
   const handleReport = () => {
     reportPost();
@@ -61,6 +78,7 @@ function PostCard({ post }: PostCardProps) {
     }
     alert("Post reported");
   };
+
 
   return (
     <div
@@ -88,9 +106,21 @@ function PostCard({ post }: PostCardProps) {
         <button
           onClick={handleReport}
           id={true ? "report-button" : "report-button-div"}
-          className=" bg-pink-100 text-black p-2 m-2 hover:bg-pink-300 hover:text-white border-3 border-pink-300 rounded-lg">
+          className="  bg-red-100 text-black p-2 m-2 hover:bg-red-300 hover:text-white border-3 border-red-300 rounded-lg"
+        >
           report
         </button>
+        {isOwnPost ? (
+          <button
+            id="remove-button"
+            className=" bg-red-100 text-black p-2 m-2 hover:bg-red-300 hover:text-white border-3 border-red-300 rounded-lg"
+            onClick={() => removePost()}
+          >
+            remove
+          </button>
+        ) : (
+          <></>
+        )}
       </div>
       {/* <p className="text-center text-sm">{post.createdAt.toString()}</p> */}
       <CommentCardContainer comments={post.comments} postID={post.id!} />

@@ -7,6 +7,16 @@
 
 } */
 
+#gridmode-button{
+  margin-bottom: 5%;
+}
+
+@media (max-width: 582px) {
+  #main-div {
+    min-width: 100%;
+  }
+}
+
 #main-div {
   padding-top: 5%;
   margin-top: auto;

@@ -92,14 +92,24 @@ export default {
     args: { username: string; usernameToFollow: string }
   ) => {
     const user = await userModel
-      .findOne({ username: args.username })
-      .populate("following");
+      .findOne({ username: args.username });
     const userToFollow = await userModel
-      .findOne({ username: args.usernameToFollow })
-      .populate("followers");
+      .findOne({ username: args.usernameToFollow });
 
     if (!user || !userToFollow) {
       throw new Error("Users not valid");
+    }
+
+    if (user.following.includes(userToFollow._id)) {
+      user.following = user.following.filter(
+        (userId) => userId.toString() !== userToFollow._id.toString()
+      );
+      userToFollow.followers = userToFollow.followers.filter(
+        (userId) => userId.toString() !== user._id.toString()
+      );
+      user.save();
+      userToFollow.save();
+      return userToFollow;
     }
     
     user.following.push(userToFollow._id);

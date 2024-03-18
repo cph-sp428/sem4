@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { CREATE_POST } from "../../graphql/mutations/CREATE_POST";
 import useAuth from "../../hooks/useAuth";
-import { GET_POSTS_BY_USERNAME } from "../../graphql/queries/GetPostsByUsername";
+import { GET_POSTS_BY_USERNAME } from "../../graphql/queries/GET_POSTS_BY_USERNAME";
 
 function CreatePostPage() {
   const navigate = useNavigate();
