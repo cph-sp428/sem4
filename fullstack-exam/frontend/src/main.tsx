@@ -48,6 +48,7 @@ TODO:                 WORKED:
 20. -----------------follow-unfollow bug
 21. -----------------re-implement search bar (in explore page?)
 22. .................comment bug in home page
+23. double check error handling
 
 5. ------------------massive bcrypt bug
 6. ------------------!!!!!! stateful components w/ useContext? (used refetchQueries)
@@ -73,9 +74,7 @@ TODO:                 WORKED:
 // });
 
 // const authLink = setContext((_, { headers }) => {
-//   // get the authentication token from local storage if it exists
 //   const token = localStorage.getItem('token');
-//   // return the headers to the context so httpLink can read them
 //   return {
 //     headers: {
 //       ...headers,

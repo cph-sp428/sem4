@@ -26,8 +26,8 @@ const jwtMiddleware = (
   res: express.Response,
   next: express.NextFunction
 ) => {
-  if (req.body.operationName === "Login" || req.path === "Register") {
-    console.log("allowing anonymous"); 
+  if (req.body.operationName === 'login' || req.body.operationName === 'addUser') {
+    //allowing anonymous users to login and register
     return next();
   }
   const token = req.headers.authorization;
@@ -45,6 +45,7 @@ const errorMiddleware = (
 ) => {
   console.error(err.stack);
   res.status(500).json({ message: err.message });
+  next();
 };
 
 const app = express();
@@ -62,10 +63,10 @@ app.use(
   cors<cors.CorsRequest>(),
   express.json(),
   //jwtMiddleware,
-  errorMiddleware,
   expressMiddleware(server, {
     context: async ({ req }) => ({ token: req.headers.authorization }),
-  })
+  }),
+  errorMiddleware,
 );
 
 

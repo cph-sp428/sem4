@@ -7,12 +7,10 @@ import { dressPost } from "../../utils/PostFactory";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { REPORT_POST } from "../../graphql/mutations/REPORT_POST";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 import { GET_ALL_REPORTED_POSTS } from "../../graphql/queries/GET_ALL_REPORTED_POSTS";
 import { REMOVE_POST } from "../../graphql/mutations/REMOVE_POST";
 import { GET_ALL_POSTS } from "../../graphql/queries/GET_ALL_POSTS";
-import { GET_RELEVANT_POSTS } from "../../graphql/queries/GET_RELEVANT_POSTS";
-import { GET_USER_BY_USERNAME } from "../../graphql/queries/GET_USER_BY_USERNAME";
 import { GET_POSTS_BY_USERNAME } from "../../graphql/queries/GET_POSTS_BY_USERNAME";
 import { getToken } from "../../utils/AuthFacade";
 
