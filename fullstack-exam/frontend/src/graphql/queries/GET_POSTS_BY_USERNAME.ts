@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_POSTS_BY_USERNAME = gql`
-  query Query($username: String) {
-    postsByUsername(username: $username) {
+  query Query($token: String!, $username: String!) {
+    postsByUsername(token: $token, username: $username) {
       id
       user {
         username

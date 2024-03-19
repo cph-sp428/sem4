@@ -5,25 +5,32 @@ import Post from "../../types/Post";
 import { REMOVE_POST } from "../../graphql/mutations/REMOVE_POST";
 import { REMOVE_REPORT } from "../../graphql/mutations/REMOVE_REPORT";
 import { useNavigate } from "react-router";
+import { getToken } from "../../utils/AuthFacade";
 
 function AdminPage() {
   const navigate = useNavigate();
   const admin = useAuth("admin");
 
-  const { loading, error, data } = useQuery(GET_ALL_REPORTED_POSTS);
+  const { loading, error, data } = useQuery(GET_ALL_REPORTED_POSTS, {
+    variables: { token: getToken() },
+  });
 
   const [removePost] = useMutation(REMOVE_POST, {
+    variables: { token: getToken() },
     refetchQueries: [
       {
         query: GET_ALL_REPORTED_POSTS,
+        variables: { token: getToken() },
       },
     ],
   });
 
   const [removeReport] = useMutation(REMOVE_REPORT, {
+    variables: { token: getToken() },
     refetchQueries: [
       {
         query: GET_ALL_REPORTED_POSTS,
+        variables: { token: getToken()}
       },
     ],
   });

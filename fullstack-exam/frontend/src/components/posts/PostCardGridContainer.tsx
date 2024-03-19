@@ -4,7 +4,6 @@ interface PostCardGridContainerProps {
     posts : Post[];
 }
 
-// display images in a grid of 3 columns
 function PostCardGridContainer({posts}: PostCardGridContainerProps) {
     return ( 
         <div id="grid-container">

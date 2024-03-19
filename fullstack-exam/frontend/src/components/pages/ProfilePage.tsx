@@ -6,6 +6,7 @@ import PostCardContainer from "../posts/PostCardContainer";
 import { GET_POSTS_BY_USERNAME } from "../../graphql/queries/GET_POSTS_BY_USERNAME";
 import PostCardGridContainer from "../posts/PostCardGridContainer";
 import { useState } from "react";
+import { getToken } from "../../utils/AuthFacade";
 
 function ProfilePage() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ function ProfilePage() {
   }
 
   const { loading, error, data } = useQuery(GET_POSTS_BY_USERNAME, {
-    variables: { username: currentUsername },
+    variables: { token: getToken(), username: currentUsername },
   });
 
   if (loading) return <p>Loading...</p>;

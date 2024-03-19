@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const SEARCH_POSTS = gql`
-  query SearchPosts($searchCriteria: String!) {
-    searchPosts(searchCriteria: $searchCriteria) {
+  query SearchPosts($token: String!, $searchCriteria: String!) {
+    searchPosts(token: $token, searchCriteria: $searchCriteria) {
       id
       user {
         id

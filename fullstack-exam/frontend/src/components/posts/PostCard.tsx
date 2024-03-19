@@ -14,6 +14,7 @@ import { GET_ALL_POSTS } from "../../graphql/queries/GET_ALL_POSTS";
 import { GET_RELEVANT_POSTS } from "../../graphql/queries/GET_RELEVANT_POSTS";
 import { GET_USER_BY_USERNAME } from "../../graphql/queries/GET_USER_BY_USERNAME";
 import { GET_POSTS_BY_USERNAME } from "../../graphql/queries/GET_POSTS_BY_USERNAME";
+import { getToken } from "../../utils/AuthFacade";
 
 interface PostCardProps {
   post: Post;
@@ -43,6 +44,7 @@ function PostCard({ post }: PostCardProps) {
 
   const [likePost] = useMutation(LIKE_POST, {
     variables: {
+      token: getToken(),
       postId: post.id,
       username: user,
     },
@@ -50,24 +52,30 @@ function PostCard({ post }: PostCardProps) {
 
   const [reportPost, { error }] = useMutation(REPORT_POST, {
     variables: {
+      token: getToken(),
       postId: post.id,
     },
     refetchQueries: [
       {
         query: GET_ALL_REPORTED_POSTS,
+        variables: { token: getToken() },
       },
     ],
   });
 
   const [removePost] = useMutation(REMOVE_POST, {
-    variables : {
-      postId: post.id
+    variables: {
+      token: getToken(),
+      postId: post.id,
     },
     refetchQueries: [
-      { query: GET_ALL_POSTS },
-      { query: GET_POSTS_BY_USERNAME, variables: { username: user } },
+      { query: GET_ALL_POSTS, variables: { token: getToken() } },
+      {
+        query: GET_POSTS_BY_USERNAME,
+        variables: { token: getToken(), username: user },
+      },
     ],
-  })
+  });
 
   const handleReport = () => {
     reportPost();
@@ -78,7 +86,6 @@ function PostCard({ post }: PostCardProps) {
     }
     alert("Post reported");
   };
-
 
   return (
     <div

@@ -6,6 +6,7 @@ import { FOLLOW_USER } from "../../graphql/mutations/FOLLOW_USER";
 import { Link, useNavigate } from "react-router-dom";
 import { GET_ALL_POSTS } from "../../graphql/queries/GET_ALL_POSTS";
 import { GET_RELEVANT_POSTS } from "../../graphql/queries/GET_RELEVANT_POSTS";
+import { getToken } from "../../utils/AuthFacade";
 
 interface ProfileCardProps {
   username: string | void;
@@ -17,16 +18,19 @@ function ProfileCard({ username }: ProfileCardProps) {
   const ownProfile = ownUsername === username;
 
   const { loading, error, data } = useQuery(GET_USER_BY_USERNAME, {
-    variables: { username: username },
+    variables: { token: getToken() , username: username },
   });
 
   const [followProfile] = useMutation(FOLLOW_USER, {
-    variables: { username: ownUsername, usernameToFollow: username },
+    variables: { token: getToken(), username: ownUsername, usernameToFollow: username },
     refetchQueries: [
-      { query: GET_ALL_POSTS },
-      { query: GET_RELEVANT_POSTS, variables: { username: ownUsername } },
-      { query: GET_USER_BY_USERNAME, variables: { username: username } },
-      { query: GET_USER_BY_USERNAME, variables: { username: ownUsername } },
+      { query: GET_ALL_POSTS, variables: { token: getToken() } },
+      {
+        query: GET_RELEVANT_POSTS,
+        variables: { token: getToken(), username: ownUsername },
+      },
+      { query: GET_USER_BY_USERNAME, variables: { token: getToken() , username: username } },
+      { query: GET_USER_BY_USERNAME, variables: { token: getToken(), username: ownUsername } },
     ],
   });
 
@@ -77,7 +81,7 @@ function ProfileCard({ username }: ProfileCardProps) {
               Edit Profile
             </button>
             <button
-              onClick={() => navigate("/newPost")}
+              onClick={() => navigate("/createPost")}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
               New Post

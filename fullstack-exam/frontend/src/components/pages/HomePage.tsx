@@ -3,13 +3,14 @@ import { useQuery } from "@apollo/client";
 import PostCardContainer from "../posts/PostCardContainer";
 import { GET_RELEVANT_POSTS } from "../../graphql/queries/GET_RELEVANT_POSTS";
 import { useNavigate } from "react-router-dom";
+import { getToken } from "../../utils/AuthFacade";
 
 function HomePage() {
   const navigate = useNavigate();
   const username: string | void = useAuth("user");
 
   const { loading, error, data } = useQuery(GET_RELEVANT_POSTS, {
-    variables: { username: username },
+    variables: { token: getToken(), username: username },
   });
 
   const posts = data ? data.relevantPostsByUsername : [];
@@ -17,7 +18,6 @@ function HomePage() {
   if (loading) return <p>Loading...</p>;
   if (error) {
     console.log(error);
-    alert("Error: " + error.message);
     navigate("/home");
   }
 

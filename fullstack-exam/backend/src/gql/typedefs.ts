@@ -1,26 +1,25 @@
 export const typeDefs = `#graphql
     type Query {
         login(username: String!, password: String!) : Token
-        getAllPosts: [Post]
-        getAllPostsTwo: [Post]
-        relevantPostsByUsername(username: String!): [Post]
-        postsByUsername(username: String) : [Post]
-        userByUsername(username: String!) : User
-        searchPosts(searchCriteria: String!) : [Post]
-        getAllReportedPosts: [Post]
-        isFollowingUser(username: String!, usernameToFollow: String!): Boolean
+        getAllPosts(token: String!): [Post]
+        relevantPostsByUsername(token: String!, username: String!): [Post]
+        postsByUsername(token: String!,username: String!) : [Post]
+        userByUsername(token: String!, username: String!) : User
+        searchPosts(token: String!, searchCriteria: String!) : [Post]
+        getAllReportedPosts(token: String!): [Post]
+        # isFollowingUser(token: String!, username: String!, usernameToFollow: String!): Boolean
     }
 
     type Mutation {
         addUser(username: String!, password: String!, email: String!): User
-        addPost(username: String!, picUrl: String!, description: String!): Post
-        addComment(username: String!, postId: String!, text: String!): Comment
-        likePost(postId: String!, username: String!): Post
-        followUser(username: String!, usernameToFollow: String!): User
-        updateUser(userId: String!, username: String!, password: String!, email: String!): User
-        reportPost(postId: String!): Post
-        removePost(postId: String!): Post
-        removeReport(postId: String!): Post
+        addPost(token: String!, username: String!, picUrl: String!, description: String!): Post
+        addComment(token: String!, username: String!, postId: String!, text: String!): Comment
+        likePost(token: String!, postId: String!, username: String!): Post
+        followUser(token: String!, username: String!, usernameToFollow: String!): User
+        updateUser(token: String!, userId: String!, username: String!, password: String!, email: String!): User
+        reportPost(token: String!, postId: String!): Post
+        removePost(token: String!, postId: String!): Post
+        removeReport(token: String!, postId: String!): Post
         removeAllFollowersAndFollowing(someString: String!) : Boolean
     }
 

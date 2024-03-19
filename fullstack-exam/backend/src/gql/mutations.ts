@@ -4,6 +4,7 @@ import postModel from "../models/postModel";
 import commentModel from "../models/commentModel";
 import User from "../types/User";
 import ReportedModel from "../models/reportedModel";
+import { jwtDecode } from "jwt-decode";
 
 export default {
   addUser: async (
@@ -22,10 +23,11 @@ export default {
 
   addPost: async (
     _parent: never,
-    args: { username: string; picUrl: string; description: string },
+    args: { token: string, username: string; picUrl: string; description: string },
     _context: never,
     _info: never
   ) => {
+    validateToken(args.token, "user", args.username);
     const user = await userModel.findOne({ username: args.username });
     if (!user) {
       throw new Error("Username not found");
@@ -42,10 +44,11 @@ export default {
 
   addComment: async (
     _parent: never,
-    args: { username: string; postId: string; text: string },
+    args: { token: string; username: string; postId: string; text: string },
     _context: never,
     _info: never
   ) => {
+    validateToken(args.token, "user", args.username);
     const user = await userModel.findOne({ username: args.username });
     const post = await postModel.findById(args.postId);
 
@@ -64,8 +67,9 @@ export default {
   },
   likePost: async (
     _parent: never,
-    args: { postId: string; username: string }
+    args: { token: string, postId: string; username: string }
   ) => {
+    validateToken(args.token, "user", args.username);
     const user = await userModel.findOne({ username: args.username });
     const post = await postModel.findOne({ _id: args.postId });
 
@@ -89,12 +93,13 @@ export default {
   },
   followUser: async (
     _parent: never,
-    args: { username: string; usernameToFollow: string }
+    args: { token: string; username: string; usernameToFollow: string }
   ) => {
-    const user = await userModel
-      .findOne({ username: args.username });
-    const userToFollow = await userModel
-      .findOne({ username: args.usernameToFollow });
+    validateToken(args.token, "user", args.username);
+    const user = await userModel.findOne({ username: args.username });
+    const userToFollow = await userModel.findOne({
+      username: args.usernameToFollow,
+    });
 
     if (!user || !userToFollow) {
       throw new Error("Users not valid");
@@ -111,7 +116,7 @@ export default {
       userToFollow.save();
       return userToFollow;
     }
-    
+
     user.following.push(userToFollow._id);
     userToFollow.followers.push(user._id);
     user.save();
@@ -122,8 +127,9 @@ export default {
   // TODO: rethink the logic of this function
   updateUser: async (
     _parent: never,
-    args: { userId: string; username: string; password: string; email: string }
+    args: { token: string; userId: string; username: string; password: string; email: string }
   ) => {
+    validateToken(args.token, "user");
     const isUsernameUnique =
       (await userModel.findOne({ username: args.username })) !== null;
 
@@ -147,7 +153,8 @@ export default {
     user.save();
     return user;
   },
-  reportPost: async (_parent: never, args: { postId: string }) => {
+  reportPost: async (_parent: never, args: { token: string; postId: string }) => {
+    validateToken(args.token, "user");
     const post = await ReportedModel.findOne({ post: args.postId });
     if (post) {
       throw new Error("Post already reported");
@@ -156,7 +163,8 @@ export default {
     return reportedPost;
   },
   // TODO: remove comments and likes
-  removePost: async (_parent: never, args: { postId: string }) => {
+  removePost: async (_parent: never, args: { token: string; postId: string }) => {
+    validateToken(args.token, "user");
     const post = await postModel.findByIdAndDelete(args.postId);
     if (!post) {
       throw new Error("Post not found");
@@ -179,7 +187,8 @@ export default {
 
     return post;
   },
-  removeReport: async (_parent: never, args: { postId: string }) => {
+  removeReport: async (_parent: never, args: { token: string; postId: string }) => {
+    validateToken(args.token, "admin");
     const reportedPost = await ReportedModel.findOneAndDelete({
       post: args.postId,
     });
@@ -197,3 +206,16 @@ export default {
     return true;
   },
 };
+
+function validateToken(token: string, role: string, username?: string) {
+  const decodedToken: any = jwtDecode(token);
+  if (!decodedToken) {
+    throw new Error("valid token not provided");
+  } else if (decodedToken.roles.includes(role)) {
+    if (username) {
+      if (decodedToken.username !== username) {
+        throw new Error("Unauthorized");
+      }
+    }
+  }
+}

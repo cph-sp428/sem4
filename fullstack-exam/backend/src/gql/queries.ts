@@ -4,6 +4,7 @@ import postModel from "../models/postModel";
 import { JWT_SECRET } from "../config";
 import jwt from "jsonwebtoken";
 import ReportedModel from "../models/reportedModel";
+import { jwtDecode } from "jwt-decode";
 
 export default {
   login: async (
@@ -30,18 +31,21 @@ export default {
 
     return { token: token };
   },
-  getAllPosts: async (_parent: never, args: never) =>
-    await postModel
+  getAllPosts: async (_parent: never, args: { token: string }) => {
+    authorizeTokenAsRole(args.token, "user");
+    return await postModel
       .find()
       .populate("user")
       .populate("comments")
       .populate("likes")
-      .sort({ createdAt: -1 }),
+      .sort({ createdAt: -1 });
+  },
   relevantPostsByUsername: async (
     _parent: never,
-    args: { username: string },
+    args: { token: string; username: string },
     _context: any
   ) => {
+    authorizeTokenAsRole(args.token, "user");
     const user = await userModel
       .findOne({ username: args.username })
       .populate("following")
@@ -59,20 +63,20 @@ export default {
       .sort({ createdAt: -1 });
     // console.log(posts);
     return posts;
-
   },
   postsByUsername: async (
     _parent: never,
-    args: { username: string },
+    args: { token: string; username: string },
     _context: any
   ) => {
+    authorizeTokenAsRole(args.token, "user");
     const user = await userModel.findOne({ username: args.username });
     if (!user) {
       throw new Error("User not found");
     }
 
     const posts = await postModel
-      .find( { user: user._id })
+      .find({ user: user._id })
       .populate("user")
       .populate("comments")
       .populate("likes");
@@ -82,9 +86,10 @@ export default {
   },
   userByUsername: async (
     _parent: never,
-    args: { username: string },
+    args: { token: string; username: string },
     _context: any
   ) => {
+    authorizeTokenAsRole(args.token, "user");
     const user = await userModel
       .findOne({ username: args.username })
       .populate("posts")
@@ -98,9 +103,10 @@ export default {
   },
   searchPosts: async (
     _parent: never,
-    args: { searchCriteria: string },
+    args: { token: string; searchCriteria: string },
     _context: any
   ) => {
+    authorizeTokenAsRole(args.token, "user");
     const posts = await postModel
       .find({ description: { $regex: args.searchCriteria, $options: "i" } })
       .populate("user")
@@ -108,34 +114,39 @@ export default {
       .populate("likes");
     return posts;
   },
-  getAllReportedPosts: async (_parent: never, _context: any) => {
+  getAllReportedPosts: async (_parent: never, args: {token: string},_context: any) => {
+    authorizeTokenAsRole(args.token, "admin");
     const reportedPosts = await ReportedModel.find().populate("post");
     const posts = reportedPosts.map((reportedPost) => reportedPost.post);
     return posts;
   },
-  isFollowingUser: async (
-    _parent: never,
-    args: { username: string; usernameToFollow: string },
-    _context: any
-  ) => {
-    const user = await userModel
-      .findOne({ username: args.username })
-      .populate("following");
-    const userToFollow = await userModel.findOne({
-      username: args.usernameToFollow,
-    });
-    if (!user || !userToFollow) {
-      throw new Error("User not found");
-    }
-    return user.following.some(
-      (id) => id.toString() === userToFollow._id.toString()
-    );
-  },
+  // isFollowingUser: async (
+  //   _parent: never,
+  //   args: { token: string; username: string; usernameToFollow: string },
+  //   _context: any
+  // ) => {
+  //   authorizeTokenAsRole(args.token, "user");
+  //   const user = await userModel
+  //     .findOne({ username: args.username })
+  //     .populate("following");
+  //   const userToFollow = await userModel.findOne({
+  //     username: args.usernameToFollow,
+  //   });
+  //   if (!user || !userToFollow) {
+  //     throw new Error("User not found");
+  //   }
+  //   return user.following.some(
+  //     (id) => id.toString() === userToFollow._id.toString()
+  //   );
+  // },
 };
 
-function authorizeToken(token: string) {
-  const decodedToken = jwt.verify(token, JWT_SECRET);
+function authorizeTokenAsRole(token: string, role: string) {
+  const decodedToken: any = jwtDecode(token);
   if (!decodedToken) {
     throw new Error("Invalid token");
+  }
+  if (!decodedToken.roles.includes(role)) {
+    throw new Error("Unauthorized");
   }
 }

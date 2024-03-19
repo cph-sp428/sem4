@@ -4,6 +4,7 @@ import { useMutation } from "@apollo/client";
 import { CREATE_POST } from "../../graphql/mutations/CREATE_POST";
 import useAuth from "../../hooks/useAuth";
 import { GET_POSTS_BY_USERNAME } from "../../graphql/queries/GET_POSTS_BY_USERNAME";
+import { getToken } from "../../utils/AuthFacade";
 
 function CreatePostPage() {
   const navigate = useNavigate();
@@ -14,12 +15,13 @@ function CreatePostPage() {
   });
   const [createPost] = useMutation(CREATE_POST, {
     variables: {
+      token: getToken(),
       username: username,
       picUrl: postInfo.picUrl,
       description: postInfo.description,
     },
     refetchQueries: [
-      { query: GET_POSTS_BY_USERNAME, variables: { username: username } },
+      { query: GET_POSTS_BY_USERNAME, variables: { token: getToken(), username: username } },
     ],
   });
 

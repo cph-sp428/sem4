@@ -52,7 +52,7 @@ TODO:                 WORKED:
 5. ------------------massive bcrypt bug
 6. ------------------!!!!!! stateful components w/ useContext? (used refetchQueries)
 7. ------------------!!!!!! implement scalable ui (re bug)
-2. !!!!!! implement better authorization
+2. --------implement better authorization
 1. ------------------bug in logout - navbar ????
 3. ------------------fix the error page
 4. ------------------fix the nav bar
@@ -137,7 +137,7 @@ const router = createBrowserRouter([
         element: <AdminPage />,
       },
     ],
-    errorElement: <ErrorPage />,
+    ErrorBoundary: ErrorPage,
   },
 ]);
 

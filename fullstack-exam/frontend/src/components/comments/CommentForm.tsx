@@ -6,6 +6,9 @@ import useAuth from "../../hooks/useAuth";
 import { GET_POSTS_BY_USERNAME } from "../../graphql/queries/GET_POSTS_BY_USERNAME";
 import { GET_RELEVANT_POSTS } from "../../graphql/queries/GET_RELEVANT_POSTS";
 import { useNavigate, useParams } from "react-router";
+import ErrorPage from "../pages/ErrorPage";
+import { redirect } from "react-router";
+import { getToken } from "../../utils/AuthFacade";
 
 interface CommentFormProps {
   postId: string;
@@ -20,17 +23,21 @@ function CommentForm({ postId }: CommentFormProps) {
 
   const [addCommentMutation, { loading, error }] = useMutation(POST_COMMENT, {
     variables: {
+      token: getToken(),
       username: username,
       text: commentText,
       postId: postId,
     },
     refetchQueries: [
-      { query: GET_ALL_POSTS },
+      { query: GET_ALL_POSTS, variables: { token: getToken() } },
       {
         query: GET_POSTS_BY_USERNAME,
-        variables: { username: possibleParam.username },
+        variables: { token: getToken(), username: possibleParam.username },
       },
-      { query: GET_RELEVANT_POSTS, variables: { username: username } },
+      {
+        query: GET_RELEVANT_POSTS,
+        variables: { token: getToken(), username: username },
+      },
     ],
   });
 
@@ -39,11 +46,7 @@ function CommentForm({ postId }: CommentFormProps) {
   };
 
   if (loading) return <p>Loading...</p>;
-  if (error) {
-    console.log(error);
-    alert("Error: " + error.message);
-    navigate("/home");
-  }
+  if (error) console.log(error);
 
   return (
     <div id="comment-form">

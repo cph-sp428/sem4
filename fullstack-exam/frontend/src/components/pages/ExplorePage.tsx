@@ -4,11 +4,14 @@ import PostCardContainer from "../posts/PostCardContainer";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { getToken } from "../../utils/AuthFacade";
 
 function ExplorePage() {
   const navigate = useNavigate();
   const [searchCriteria, setSearchCriteria] = useState("");
-  const { loading, error, data } = useQuery(GET_ALL_POSTS, {});
+  const { loading, error, data } = useQuery(GET_ALL_POSTS, {
+    variables: { token: getToken() },
+  });
 
   if (loading) return <p>Loading...</p>;
   if (error) {
