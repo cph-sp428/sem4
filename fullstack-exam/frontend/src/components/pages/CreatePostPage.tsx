@@ -5,6 +5,8 @@ import { CREATE_POST } from "../../graphql/mutations/CREATE_POST";
 import useAuth from "../../hooks/useAuth";
 import { GET_POSTS_BY_USERNAME } from "../../graphql/queries/GET_POSTS_BY_USERNAME";
 import { getToken } from "../../utils/AuthFacade";
+import { GET_ALL_POSTS } from "../../graphql/queries/GET_ALL_POSTS";
+import { GET_RELEVANT_POSTS } from "../../graphql/queries/GET_RELEVANT_POSTS";
 
 function CreatePostPage() {
   const navigate = useNavigate();
@@ -21,6 +23,8 @@ function CreatePostPage() {
       description: postInfo.description,
     },
     refetchQueries: [
+      { query: GET_ALL_POSTS, variables: { token: getToken() } },
+      { query: GET_RELEVANT_POSTS, variables: { token: getToken(), username: username } },
       { query: GET_POSTS_BY_USERNAME, variables: { token: getToken(), username: username } },
     ],
   });
