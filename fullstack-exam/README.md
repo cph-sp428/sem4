@@ -15,11 +15,11 @@ a basic clone of the instagram site with the following functionality
 
 ### Feed:
 
-![](feed%20-%20prototype.png)
+![](readme/feed%20-%20prototype.png)
 
 ### Profile:
 
-![](profile%20-%20prototype.png)
+![](readme/profile%20-%20prototype.png)
 
 
 
@@ -28,8 +28,8 @@ a basic clone of the instagram site with the following functionality
 ### BACKEND 
 - http://localhost:4000/graphql
 
-![](backend-routes.png)
+![](readme/backend-routes.png)
 
 ### FRONTEND 
-![](frontend-routes1.png)
-![](frontend-routes2.png)
+![](readme/frontend-routes1.png)
+![](readme/frontend-routes2.png)
