@@ -26,8 +26,11 @@ const jwtMiddleware = (
   res: express.Response,
   next: express.NextFunction
 ) => {
-  if (req.body.operationName === 'login' || req.body.operationName === 'addUser') {
-    //allowing anonymous users to login and register
+  if (
+    req.body.operationName === "login" ||
+    req.body.operationName === "addUser"
+  ) {
+    //allowing anonymous users
     return next();
   }
   const token = req.headers.authorization;
@@ -57,7 +60,6 @@ const server = new ApolloServer<MyContext>({
 });
 await server.start();
 
-
 app.use(
   "/graphql",
   cors<cors.CorsRequest>(),
@@ -66,9 +68,8 @@ app.use(
   expressMiddleware(server, {
     context: async ({ req }) => ({ token: req.headers.authorization }),
   }),
-  errorMiddleware,
+  errorMiddleware
 );
-
 
 await new Promise<void>((resolve) =>
   httpServer.listen({ port: 4000 }, resolve)

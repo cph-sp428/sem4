@@ -31,7 +31,7 @@ TODO:                 WORKED:
 4. ------------------implement the like button
 5. ------------------implement the numberOfLikes literals
 6. ------------------implement the numberOfPosts literals
-6. ..................implement grid layout vs column layout
+6. .........implement grid layout vs column layout
 7. ------------------implement the search bar
 8. ------------------implement the follow button
 9. ------------------implement the register page
@@ -47,8 +47,8 @@ TODO:                 WORKED:
 19. -----------------admin having clean up functionality - access through gql playground
 20. -----------------follow-unfollow bug
 21. -----------------re-implement search bar (in explore page?)
-22. .................comment bug in home page
-23. double check error handling
+22. ........comment bug in home page
+23. ........double check error handling
 
 5. ------------------massive bcrypt bug
 6. ------------------!!!!!! stateful components w/ useContext? (used refetchQueries)
