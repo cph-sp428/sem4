@@ -67,7 +67,7 @@ function AdminPage() {
 
   return (
     <div id="admin-page-container">
-      <h1 className=" text-center">Admin Page</h1>
+      <h1>Admin Page</h1>
       {reportedPosts.length === 0 ? (
         <p>No reported posts</p>
       ) : (

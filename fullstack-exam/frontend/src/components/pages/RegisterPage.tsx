@@ -18,7 +18,7 @@ function RegisterPage() {
     userInfo.email.length > 0
   )
 
-  const [registerUser] = useMutation(REGISTER_USER, {
+  const [registerUser,{error}] = useMutation(REGISTER_USER, {
     variables: {
       username: userInfo.username,
       password: userInfo.password,
@@ -30,6 +30,10 @@ function RegisterPage() {
     e.preventDefault();
     if (validForm) {
       registerUser();
+      if(error) {
+        alert("Error: " + error.message);
+        return;
+      }
       alert("User registered!");
       navigate("/login");
     } else {

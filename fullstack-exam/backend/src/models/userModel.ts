@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 import User from "../types/User";
 import Post from "../types/Post";
 
+const validateEmail = (email: string) => {
+  const re = /\S+@\S+\.\S+/;
+  return re.test(email);
+ };
+
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -19,9 +24,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    minlength: 5,
-    maxlength: 25,
+    minlength: [5, "Email too short"],
+    maxlength: [30, "Email too long"],
     lowercase: true,
+    validate: [validateEmail, "Invalid email"]
   },
   roles: {
     type: [String],

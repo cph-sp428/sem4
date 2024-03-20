@@ -19,6 +19,7 @@ interface PostCardProps {
 }
 
 function PostCard({ post }: PostCardProps) {
+
   const navigate = useNavigate();
   const user = useAuth("user");
 
